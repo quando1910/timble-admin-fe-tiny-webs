@@ -1,0 +1,335 @@
+<div class="container-fluid file_manager photo-selection">
+  <div id="picture-manager" [ngClass]="{'pictures-btn float-content': true, 'active': active }" (click)="toggle(1)">
+    <div class="pictures-content">
+      <span><i class="fa fa-desktop"></i>Danh sách ảnh đã chọn</span>
+      <i [ngClass]="['fa', active? 'fa-close' : 'fa-minus']" (click)="toggle(0)"></i>
+      <i *ngIf="active" class="fa fa-save" (click)="submitPhoto()"></i>
+      <p class="desc">asfasfasfasf</p>
+      <div class="card toggle-content container">
+        <div class="row clearfix">
+          <div class="col-lg-3 col-md-3 col-sm-12">
+            <div class="card">
+              <div class="file">
+                <a href="javascript:void(0);">
+                  <div class="hover">
+                    <button type="button" class="btn btn-icon btn-success">
+                      <i class="fa fa-check"></i>
+                    </button>
+                    <button type="button" class="btn btn-icon btn-danger">
+                      <i class="fa fa-trash"></i>
+                    </button>
+                </div>
+                  <div class="image"> 
+                    <img src="assets/images/image-gallery/5.jpg" alt="img" class="img-fluid">
+                  </div>
+                  <div class="file-name">
+                    <p class="m-b-5 text-muted">img21545ds.jpg</p>
+                    <label>Thể thức in: </label>
+                    <select>
+                      <option>13x18 - 10,000VND</option>
+                      <option>20x30 có khung - 20,000VND</option>
+                    </select>
+                    <label>Số lượng:</label> <input>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="card">
+    <div class="body">
+      <div class="input-group" id="adv-search">
+        <input type="text" class="form-control mr-1" placeholder="Search here..." />
+        <button type="button" class="btn btn-primary"><span class="icon-magnifier" aria-hidden="true"></span></button>
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-success">
+                <i class="fa fa-check"></i>
+              </button>
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/5.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/8.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/9.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/3.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/4.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/1.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/2.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/9.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/10.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/11.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/12.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/13.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/14.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-3 col-md-4 col-sm-12">
+      <div class="card">
+        <div class="file">
+          <a href="javascript:void(0);">
+            <div class="hover">
+              <button type="button" class="btn btn-icon btn-danger">
+                <i class="fa fa-trash"></i>
+              </button>
+            </div>
+            <div class="image">
+              <img src="assets/images/image-gallery/15.jpg" alt="img" class="img-fluid">
+            </div>
+            <div class="file-name">
+              <p class="m-b-5 text-muted">img21545ds.jpg</p>
+              <small>Size: 2MB <span class="date text-muted">Dec 11, 2017</span></small>
+            </div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

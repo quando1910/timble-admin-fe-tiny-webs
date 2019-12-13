@@ -1,0 +1,74 @@
+<div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-lg-8 col-md-12">
+      <div *ngFor="let contract of contractSchedule; let i1 = index">
+        <div class="card" *ngIf="contractSchedule.length !== 0">
+          <div class="header">
+            <h2 class="text-center">{{contract.date_taken | date: 'yyyy/MM/dd' : '+0700'}}</h2>
+          </div>
+          <div class="body project_report">
+            <div class="table-responsive">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Trạng Thái</th>
+                    <th>Thông Tin Cơ Bản</th>
+                    <th>Đại Diện</th>
+                    <th>Thợ Phụ Trách</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of contract.contracts; let i = index">
+                    <td>
+                      <span class="badge" [class.badge-success]="item.picture_at" class="badge">SP</span>
+                      <span class="badge" [class.badge-success]="item.video_at">VID</span>
+                      <span class="badge" [class.badge-success]="item.paid_at">TT</span>
+                    </td>
+                    <td><a [routerLink]="['../', item.id]">{{ item.group }} - {{ item.school.name }}</a></td>
+                    <td>{{ item.member.name }}</td>
+                    <td>
+                      <ul 
+                        class="list-unstyled team-info info-schedule"
+                        *ngFor="let photoers of item.date_takens">
+                        <li 
+                          class="pd-r-20" 
+                          placement="top" 
+                          ngbTooltip="{{photoer.user.name}}"
+                          *ngFor="let photoer of photoers.photographer_date_takens">
+                          <img src="assets/img/photo.jpg" alt="Avatar">
+                        </li>
+                      </ul>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="footer">
+            <div class="accordion custom" id="accordion">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-2">
+                    <button class="btn btn-link collapsed text-primary"
+                      type="button" (click)="toggleCollepseGeneral(i1)">Chi Tiết</button>
+                  </h5>
+                </div>
+                <div class="collapse" [ngClass]="{'show':collepse == i1}">
+                  <div class="card-body">
+                    <ul class="list-unstyled basic-list custom-list">
+                      <li>Tổng Show <span class="badge badge-primary">{{contract.contracts.length}}</span></li>
+                      <li>Thuê Đồ Combo <span class="badge badge-primary">{{detailValue[i1][0]}}</span></li>
+                      <li>Thuê đồ concept <span class="badge badge-primary">{{contract.contracts.city}}</span></li>
+                      <li>Chụp đêm <span class="badge badge-primary">{{detailValue[i1][1]}}</span></li>
+                      <li>Video <span class="badge badge-primary">{{detailValue[i1][2]}}</span></li>
+                      <li>Trang trí <span class="badge badge-primary">{{detailValue[i1][3]}}</span></li>
+                      <li>Số thợ dự kiến <span class="badge badge-primary">{{detailValue[i1][4]}}</span></li>
+                    </ul>
+                  </div>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

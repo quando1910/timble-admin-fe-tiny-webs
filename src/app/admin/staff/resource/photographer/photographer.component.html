@@ -1,0 +1,187 @@
+<div class="container-fluid">
+	<div class="row clearfix">
+		<div class="col-sm-12 col-md-8">
+			<div class="card">
+				<div class="header d-flex align-center left-right">
+					<h2>Danh sách thợ ảnh</h2>
+					<button (click)="openDialog(dialogAddPhotographer, 'lg')" type="button" class="btn btn-info">
+						<i class="icon-plus"></i>&nbsp;<span>Thêm thợ</span>
+					</button>
+				</div>
+				<div class="body project_report">
+					<div class="table-responsive">
+						<table class="table table-hover" *ngIf="photographers">
+							<thead class="thead-light">
+								<tr>
+									<th>Tên tuổi</th>
+									<th>Ngày tham gia</th>
+									<th>Số điện thoại</th>
+									<th>Gear</th>
+									<th>Facebook</th>
+									<th>Email</th>
+									<th>Actions</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let photo of photographers">
+										<td class="image-with-name">
+											<ul class="list-unstyled team-info">
+												<li placement="top" ngbTooltip="Tooltip on the top"><img [src]="photo.avatar.url || 'assets/img/photo.jpg'" alt="Avatar"></li>
+											</ul>
+											<span class="name">{{photo.name}}</span>
+										</td>
+										<td>
+											{{photo.date_join}}
+										</td>
+										<td><a [href]="'tel:' + photo.phone">{{photo.phone}}</a></td>
+										<td>D750</td>
+										<td>
+												<!-- <a [href]="partner.phone_number">{{photo.facebook}}</a> -->
+										</td>
+										<td>
+												{{photo.email}}
+										</td>
+										<td class="project-actions">
+											<a [routerLink]="[photo.id]" class="btn btn-outline-secondary mr-1"><i class="icon-eye"></i></a>
+											<a class="btn btn-outline-secondary" href="javascript:void(0);"><i class="icon-pencil"></i></a>
+										</td>
+									</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-sm-12 col-md-3">
+			<div class="card">
+				<ul class="row profile_state list-unstyled">
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-camera"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="2365" data-speed="1000" data-fresh-interval="700">2365</h5>
+							<small>Shots View</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-thumbs-o-up"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">1203</h5>
+							<small>Likes</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-comments-o"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="324" data-speed="1000" data-fresh-interval="700">324</h5>
+							<small>Comments</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-user"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">1980</h5>
+							<small>Profile Views</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-desktop"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="251" data-speed="1000" data-fresh-interval="700">251</h5>
+							<small>Website View</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-file-text text-warning"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">52</h5>
+							<small>Attachment</small>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="card">
+				<div class="header">
+					<h2>Bảng xếp hạng</h2>
+				</div>
+				<div class="body">
+					<ul class="list-unstyled feeds_widget">
+						<li>
+							<div class="feeds-left">1</div>
+							<div class="feeds-body">
+								<h4 class="title">Hùng Mai<small class="float-right text-muted">30 shows</small></h4>
+								<small>12,000,000 VND</small>
+							</div>
+						</li>
+						<li>
+							<div class="feeds-left"><i class="fa fa-user"></i></div>
+							<div class="feeds-body">
+								<h4 class="title">New User <small class="float-right text-muted">10:45</small></h4>
+								<small>I feel great! Thanks team</small>
+							</div>
+						</li>
+						<li>
+							<div class="feeds-left"><i class="fa fa-question-circle"></i></div>
+							<div class="feeds-body">
+								<h4 class="title text-warning">Server Warning <small
+										class="float-right text-muted">10:50</small></h4>
+								<small>Your connection is not private</small>
+							</div>
+						</li>
+						<li>
+							<div class="feeds-left"><i class="fa fa-check"></i></div>
+							<div class="feeds-body">
+								<h4 class="title text-danger">Issue Fixed <small
+										class="float-right text-muted">11:05</small></h4>
+								<small>WE have fix all Design bug with Responsive</small>
+							</div>
+						</li>
+						<li>
+							<div class="feeds-left"><i class="fa fa-shopping-basket"></i></div>
+							<div class="feeds-body">
+								<h4 class="title">7 New Orders <small class="float-right text-muted">11:35</small></h4>
+								<small>You received a new oder from Tina.</small>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<ng-template #dialogAddPhotographer let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Thông tin thợ chụp</h4>
+  </div>
+  <div class="modal-body">
+    <form #addPhotographer="ngForm">
+      <div class="form-group">
+        <label for="text-input4">Tên</label>
+        <input [(ngModel)]="data.name"
+               class="form-control"
+               name="name"
+               #name="ngModel"
+							 [ngClass]="{'parsley-error':!name.valid && (name.touched || addPhotographer.submitted)}"
+							 required>
+				<ul class="parsley-errors-list filled" *ngIf="!name.valid && (name.touched || addPhotographer.submitted)">
+					<li class="parsley-required" *ngIf="name.hasError('required')">This value is required.</li>
+				</ul>
+      </div>
+      <div class="form-group">
+          <label for="text-input4">Số điện thoại</label>
+          <input [(ngModel)]="data.phone"
+                 class="form-control"
+                 name="phone"
+                 #phone="ngModel"
+								 [ngClass]="{'parsley-error':!phone.valid && (phone.touched || addPhotographer.submitted)}"
+								 required>
+				<ul class="parsley-errors-list filled" *ngIf="!phone.valid && (phone.touched || addPhotographer.submitted)">
+					<li class="parsley-required" *ngIf="phone.hasError('required')">This value is required.</li>
+				</ul>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="addPhotoGrapher(addPhotographer)">Thêm</button>
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Close click')">Thoát</button>
+  </div>
+</ng-template>

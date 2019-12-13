@@ -1,0 +1,217 @@
+<div class="card container" *ngIf="members && members.length > 0">
+  <div class="header d-flex align-center left-right">
+    <h5>Quản lý trang phục lớp</h5>
+    <div>
+      <button (click)="openDialog(receiveCostume, 'lg')" class="btn btn-warning m-1">
+        <i class="icon-plus"></i>&nbsp;<span>Nhận/Trả hộ trang phục</span>
+      </button>
+      <button (click)="openDialog(dialogAddMember, 'lg')" class="btn btn-info m-1">
+        <i class="icon-plus"></i>&nbsp;<span>Thêm thành viên</span>
+      </button>
+    </div>
+  </div>
+  <div class="body">
+    <p>Danh sách trang phục chủ yếu:</p>
+    <div class="row">
+      <div class="col-md-4 col-xs-12">
+        <table class="table table-hover">
+          <thead class="thead-light">
+            <tr>
+              <th>Tên trang Phục</th>
+              <th>Mượn</th>
+              <th>Trả</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let item of contract.summaries">
+              <td>
+                <span class="name">{{ item?.name }}</span>
+              </td>
+              <td>
+                <span class="name">{{ item?.total_rent }}</span>
+              </td>
+              <td>
+                <span class="name">{{ item?.total_return }}</span>
+              </td>
+              <td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-8 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <h6><b>Thông tin nhóm/lớp</b></h6>
+            <label>Mã: </label><input type="text" readonly="readonly" [value]="contract?.code" #codeContract> <button
+              class="btn" (click)="copyCode(codeContract)"><i class="fa fa-copy"></i></button><br>
+            <label>Lớp:</label><span> {{contract?.group}}</span><br>
+            <label>Niên hiệu:</label><span> {{contract?.label}}</span><br>
+            <label>Trường:</label><span> {{contract?.school.name}}</span><br>
+            <label>Sĩ số:</label><span> {{contract?.total_member}} ( {{contract?.male_number}} <i
+                class="icon-symbol-male"></i> +
+              {{contract?.female_number}} <i class="icon-symbol-female"></i> )</span><br>
+            <p>
+              <ngb-progressbar type="success" [value]="87" height="5px"></ngb-progressbar>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr>
+    <h6>Danh sách Nam</h6>
+    <ng-container [ngTemplateOutlet]="tableCostume"
+      [ngTemplateOutletContext]="{headerTab: headerGender.male, members: membersGender.male, type: 'single', status: status}">
+    </ng-container>
+    <hr>
+    <h6>Danh sách nữ</h6>
+    <ng-container [ngTemplateOutlet]="tableCostume"
+      [ngTemplateOutletContext]="{headerTab: headerGender.female, members: membersGender.female, type: 'single', status: status}">
+    </ng-container>
+  </div>
+</div>
+
+<ng-template #tableCostume let-headerTab="headerTab" let-members="members" let-type="type" let-status="status">
+  <p-table [columns]="headerTab" [scrollable]="true" scrollHeight="300px" [value]="members" [frozenColumns]="frozenCols"
+    [scrollable]="true" frozenWidth="200px">
+    <ng-template pTemplate="colgroup" let-columns>
+      <colgroup>
+        <col *ngFor="let col of columns" [style.width]="col.width">
+      </colgroup>
+    </ng-template>
+    <ng-template pTemplate="header" let-columns>
+      <tr>
+        <th *ngFor="let col of columns">
+          {{col.header}}
+        </th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-rowData let-columns="columns">
+      <tr>
+        <td style="position: relative;" *ngFor="let col of columns">
+          <ng-container *ngIf="col.field !== 'name' && col.field !== 'phone_number'; else newCond">
+            <ng-container *ngIf="type === 'single'">
+              <p-dropdown *ngIf="rowData?.chart[col.field]" [styleClass]="colorStatus['' + rowData?.chart[col.field].status]"
+                [(ngModel)]="rowData?.chart[col.field].status" [options]="status"
+                (onChange)="hireCostume(rowData?.chart[col.field]?.id, rowData.id, col, $event)">
+              </p-dropdown>
+            </ng-container>
+            <ng-container *ngIf="type === 'multiple'">
+              <ng-container *ngIf="rowData.chart && rowData.chart[col.field]">
+                  <ng-container *ngIf="statusPaid.current === 'hire'">
+                    <p-checkbox *ngIf="rowData.chart[col.field].status === null" (onChange)="sumRequestCostume(rowData?.chart[col.field]?.id, rowData.id, col, 0, $event)" [value]="0" label="Thuê" [(ngModel)]="rowData.chart[col.field].checkBox"></p-checkbox>
+                    <span class="text-black-50" *ngIf="rowData.chart[col.field].status === 0"><i class="icon-check"></i> Đang thuê</span>
+                  </ng-container>
+                  <ng-container *ngIf="statusPaid.current === 'returnBack'">
+                    <p-checkbox *ngIf="rowData.chart[col.field].status === 0" (onChange)="sumRequestCostume(rowData?.chart[col.field]?.id, rowData.id, col, 1, $event)" [value]="1" label="Trả" [(ngModel)]="rowData.chart[col.field].checkBox"></p-checkbox>
+                    <span class="text-black-50" *ngIf="rowData.chart[col.field].status === 1"><i class="icon-check"></i> Đã trả</span>
+                  </ng-container>
+              </ng-container>
+            </ng-container>
+          </ng-container>
+          <ng-template #newCond>
+            <div class="costume-row-name">
+              <span>{{ rowData[col.field] }}</span>
+            </div>
+            <ng-container *ngIf="col.field === 'name' && rowData.returnFull">
+              <span class="costume-row-label badge badge-success float-right">Đủ</span>
+            </ng-container>
+          </ng-template>
+        </td>
+      </tr>
+    </ng-template>
+  </p-table>
+</ng-template>
+
+<ng-template #dialogAddMember let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Thông tin thành viên</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="registerForm" class="form-auth-small" (ngSubmit)="onSubmit()">
+      <input formControlName="id" hidden>
+      <input formControlName="_destroy" hidden>
+      <div class="form-group">
+        <label for="signup-email" class="control-label">Tên</label>
+        <input formControlName="name" type="string" class="form-control" placeholder="Tên của bạn">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">SĐT</label>
+        <input formControlName="phone_number" type="string" class="form-control" placeholder="SĐT">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Email</label>
+        <input formControlName="email" type="email" class="form-control" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Link Facebook</label>
+        <input formControlName="link_facebook" type="string" class="form-control" placeholder="Facebook">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Giới tính</label><br>
+        <label class="fancy-radio">
+          <input formControlName="gender" name="gender" value="0" type="radio" checked>
+          <span><i></i>Nữ</span>
+        </label>
+        <label class="fancy-radio">
+          <input formControlName="gender" name="gender" value="1" type="radio">
+          <span><i></i>Nam</span>
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Close click')">Thoát</button>
+    <button type="button" class="btn btn-primary" (click)="addMember()">Thêm</button>
+  </div>
+</ng-template>
+
+<ng-template #receiveCostume let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Form Nhận/ Trả hộ trang phục</h4>
+  </div>
+  <div class="modal-body">
+    <div class="form-group">
+      <div class="ui-g" style="width:250px;margin-bottom:10px">
+        <div class="ui-g-12"><p-radioButton name="group1" value="hire" label="Nhận" [(ngModel)]="statusPaid.current" inputId="opt1"></p-radioButton></div>
+        <div class="ui-g-12"><p-radioButton name="group1" value="returnBack" label="Trả" [(ngModel)]="statusPaid.current" inputId="opt2"></p-radioButton></div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="signup-email" class="control-label">Người nhận/ trả hộ</label>
+      <ng-multiselect-dropdown name="multiSelect" [(ngModel)]="supportInfo.represent" [placeholder]="'chọn'"
+        [settings]="dropdownSettings" [data]="members">
+      </ng-multiselect-dropdown>
+    </div>
+    <div class="form-group">
+      <label for="signup-password" class="control-label">Người được nhận/ trả hộ</label>
+      <ng-multiselect-dropdown 
+        (onSelect)="selectPerson($event)"
+        (onDeSelect)="deselectPerson($event)" name="multiSelect" [(ngModel)]="supportInfo.members" [placeholder]="'chọn'"
+        [settings]="beDropdownSettings" [data]="membersGender.debt">
+      </ng-multiselect-dropdown>
+    </div>
+    <div class="form-group">
+      <label for="signup-password" class="control-label">Tổng người được nhận/ trả hộ: {{supportInfo.members.length}}</label>
+    </div>
+    <button type="button" class="btn btn-info" (click)="checkCostume()">Tính danh sách</button>
+    <hr>
+    <ng-container *ngIf="showTable">
+      <ng-container 
+        [ngTemplateOutlet]="tableCostume"
+        [ngTemplateOutletContext]="{ headerTab: headerGender.all, members: supportInfo.membersConvert, type: 'multiple', status: statusPaid[statusPaid.current]}">
+      </ng-container>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Tổng số lượng trả đồ:</label>
+        <div class="container row">
+          <div class="col-lg-3 col-md-6 col-sm-6 col-xs-6" *ngFor="let item of costumes">
+            <b>{{item.name}}: </b><span>{{item.supportCount.length}}</span>
+          </div>
+        </div>
+      </div>
+    </ng-container>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Close click')">Thoát</button>
+    <button type="button" class="btn btn-primary" (click)="requestCostumes()">Submit</button>
+  </div>
+</ng-template>

@@ -1,0 +1,263 @@
+<div class="container-fluid">
+	<div class="row clearfix">
+		<div class="col-lg-12">
+			<div class="card">
+				<div class="body">
+					<ul class="nav nav-tabs">
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" [routerLink] = "['/admin/staff/profile']" fragment="settings" [ngClass]="{'active':fragment == 'settings'}">Thông tin</a></li>
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" [routerLink] = "['/admin/staff/profile']" fragment="works" [ngClass]="{'active':fragment == 'works'}">Công việc</a></li>
+						<li class="nav-item"><a class="nav-link" data-toggle="tab" [routerLink] = "['/admin/staff/profile']" fragment="devices" [ngClass]="{'active':fragment == 'devices'}">Thiết bị</a></li>
+					</ul>
+				</div>
+				<div class="tab-content">
+
+					<div class="tab-pane" [ngClass]="{'active':fragment == 'settings'}">
+
+						<div class="body">
+							<h6>Profile Photo</h6>
+							<div class="media">
+								<div class="media-left m-r-15">
+									<img [src]="currentImg" style="width: 150px; height: 150px; object-fit: cover;" class="user-photo media-object" alt="User">
+								</div>
+								<div class="media-body">
+									<p>Upload your photo.
+										<br> <em>Image should be at least 140px x 140px</em></p>
+										<input type="file" id="filePhoto" (change)="selectedFile($event)"  class="sr-only">
+									<label for="filePhoto">
+										<div class="btn btn-warning mr-1"><i class="icon-camera"></i></div>
+									</label>
+								</div>
+							</div>
+						</div>
+
+						<div class="body">
+							<div class="row clearfix">
+								<div class="col-lg-6 col-md-12">
+									<h6>Thay đổi mật khẩu</h6>
+									<div class="form-group">
+										<input type="password" class="form-control" [(ngModel)]="password.old_password" placeholder="Mật khẩu hiện tại">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" [(ngModel)]="password.password" placeholder="Mật khẩu mới">
+									</div>
+									<div class="form-group">
+										<input type="password" class="form-control" [(ngModel)]="password.password_confirmation" placeholder="Xác thực mật khẩu mới">
+									</div>
+								</div>
+							</div>
+							<button type="button" class="btn btn-primary" (click)="updatePassword()">Cập nhật mật khẩu</button> &nbsp;&nbsp;
+						</div>
+						<form [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+							<div class="body">
+								<h6>Thông tin cơ bản</h6>
+								<div class="row clearfix">
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+											<label>Họ và tên</label>
+											<input type="text" formControlName="name" class="form-control" placeholder="Họ và Tên">
+										</div>
+										<div class="form-group">
+											<label>Giới tính</label>
+											<div>
+												<label class="fancy-radio">
+													<input name="gender2" value="male" type="radio" checked>
+													<span><i></i>Nam</span>
+												</label>
+												<label class="fancy-radio">
+													<input name="gender2" value="female" type="radio">
+													<span><i></i>Nữ</span>
+												</label>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Ngày sinh</label>
+											<div class="input-group">
+												<div class="input-group-prepend">
+													<span class="input-group-text"><i class="icon-calendar"></i></span>
+												</div>
+												<p-calendar formControlName="birthday" [yearNavigator]="true" yearRange="1990:2005"></p-calendar>
+											</div>
+										</div>
+										<div class="form-group">
+											<label>Số điện thoại</label>
+											<input type="text" formControlName="phone" class="form-control" placeholder="Số điện thoại">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+											<label>Địa chỉ</label>
+											<input type="text" class="form-control" formControlName="address" placeholder="Địa chỉ nhà ở/ Nơi thường trú">
+										</div>
+										<div class="form-group">
+											<label>Quê quán</label>
+											<input type="text" class="form-control" formControlName="hometown" placeholder="Quê quán">
+										</div>
+										<div class="form-group">
+											<label>Link facebook</label>
+											<input type="text" class="form-control" placeholder="http://">
+										</div>
+										<div class="form-group">
+											<label>Email</label>
+											<p placeholder="Email">{{user.email}}</p>
+										</div>
+									</div>
+								</div>
+								<h6>Tài khoản ngân hàng</h6>
+								<div class="row clearfix">
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+											<label>Số tài khoản</label>
+											<input type="text" formControlName="bank_number" class="form-control" placeholder="STK">
+										</div>
+									</div>
+									<div class="col-lg-6 col-md-12">
+										<div class="form-group">
+											<label>Ngân hàng</label>
+											<input type="text" formControlName="bank_name" class="form-control" placeholder="Thuộc ngân hàng nào?">
+										</div>
+									</div>
+								</div>
+								<button type="button" class="btn btn-primary" (click)="updateInfo()">Cập nhật</button> &nbsp;&nbsp;
+							</div>
+						</form>
+					</div>
+
+					<div class="tab-pane" [ngClass]="{'active':fragment == 'works'}">
+						<div class="body">
+							<h6>Payment Method</h6>
+							<div class="payment-info">
+								<h3 class="payment-name"><i class="fa fa-paypal"></i> 123123123010231230</h3>
+								<span>Do Hong Quan</span>
+								<br>
+								<em class="text-muted">Eximbank chi nhánh Đà Nẵng</em>
+							</div>
+						</div>
+
+						<div class="row clearfix">
+							<div class="col-lg-12 col-md-12">
+								<div class="body">
+									<h6>Tiền tạm tính</h6>
+									<ul class="row list-unstyled list-login-session">
+										<li class="col-lg-4 col-md-12">
+											<div class="login-session">
+												<i class="device-icon">$</i>
+												<div class="login-info">
+													<h3 class="login-title">{{money.totalSalary}} VND</h3>
+													<span class="login-detail"><span class="text-success">Tổng lương</span></span>
+												</div>
+											</div>
+										</li>
+										<li class="col-lg-4 col-md-12">
+											<div class="login-session">
+												<i class="device-icon">$</i>
+												<div class="login-info">
+													<h3 class="login-title">{{money.totalDebt}} VND</h3>
+													<span class="login-detail"><span class="text-danger">Tổng nợ</span></span>
+												</div>
+											</div>
+										</li>
+										<li class="col-lg-4 col-md-12">
+											<div class="login-session">
+												<i class="device-icon">$</i>
+												<div class="login-info">
+													<h3 class="login-title">{{money.totalDebt - money.totalSalary}} VND</h3>
+													<span class="login-detail"><span class="text-warning">Còn lại</span></span>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="body">
+							<h6>Danh sách công việc (chưa chi trả lương)</h6>
+							<table class="table billing-history">
+								<thead>
+									<tr>
+										<th>Ngày chụp</th>
+										<th>Vai trò</th>
+										<th>Lương</th>
+										<th>Tình trạng</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let task of unpaidTask">
+										<td>
+											<h6 class="billing-title">{{task.date_taken?.contract?.name}}</h6>
+											<span class="text-muted">{{task.date_taken?.date_taken | date: 'yyyy/MM/dd' : '+0700'}}</span> - <span class="invoice-number">#{{task.date_taken?.contract?.code}}</span>
+										</td>
+										<td class="amount"><span>{{task.photographer_role}}</span></td>
+										<td class="action"><a href="javascript:void(0);">{{task.salary}}</a></td>
+										<td><span class="badge badge-warning m-b-0">Chưa trả</span></td>
+									</tr>
+								</tbody>
+							</table>
+							<button type="button" class="btn btn-default">Xem đầy đủ công việc tại đây</button>
+						</div>
+						<hr>
+						<div class="body">
+							<h6>Danh sách ứng/ mượn tiền (chưa clear)</h6>
+							<table class="table billing-history">
+								<thead>
+									<tr>
+										<th>Ngày ứng</th>
+										<th>Số tiền</th>
+										<th>Ghi chú</th>
+										<th>Tình trạng</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr *ngFor="let task of debts">
+										<td>
+											<h3 class="billing-title">{{convertDate(task.date?.seconds) | date: 'yyyy/MM/dd' : '+0700'}}</h3>
+										</td>
+										<td class="amount">{{task.money}}</td>
+										<td class="amount">{{task.note}}</td>
+										<td>
+											<span class="badge m-b-0" [ngClass]="{'badge-success': task.paid, 'badge-warning': !task.paid}">{{task.paid ? 'Đã trả' : 'Chưa trả'}}</span>
+										</td>
+										<td><a class="btn btn-outline-secondary" (click)="removeDebt(task)"><i class="icon-trash"></i></a></td>
+									</tr>
+								</tbody>
+							</table>
+							<button type="button" class="btn btn-default">Xem đầy đủ ứng/mượn tiền tại đây</button>
+						</div>
+					</div>
+
+					<div class="tab-pane" [ngClass]="{'active':fragment == 'devices'}">
+						<div class="row clearfix">
+							<div class="col-lg-6 col-md-12">
+								<div class="body">
+									<h6>Thiết bị quay/chụp</h6>
+									<ul class="list-unstyled list-login-session">
+										<li>
+											<div class="login-session">
+												<i class="fa fa-laptop device-icon"></i>
+												<div class="login-info">
+													<h3 class="login-title">Nikon - D750</h3>
+													<span class="login-detail">Lens 85 F 1.8</span><br>
+													<span class="login-detail">Lens 35 F 1.8</span>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="login-session">
+												<i class="fa fa-desktop device-icon"></i>
+												<div class="login-info">
+													<h3 class="login-title">Sony - A7 Mark III</h3>
+													<span class="login-detail">Lens 85 F 1.8</span><br>
+													<span class="login-detail">Lens 16 F 1.8</span><br>
+												</div>
+											</div>
+										</li>
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

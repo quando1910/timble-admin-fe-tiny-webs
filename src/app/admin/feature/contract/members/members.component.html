@@ -1,0 +1,42 @@
+<div class="public-contract container-fluid">
+  <div class="contract row clearfix col-md-12">
+    <div class="card">
+      <div class="body project_report">
+        <div class="container contract-info-main">
+          <div class="table-responsive">
+            <table class="table table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th>STT</th>
+                  <th>Tên tuổi</th>
+                  <th>Giới tính</th>
+                  <th>Email</th>
+                  <th>Facebook</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let member of members; let i = index">
+                  <td>
+                    <span class="name">{{i + 1 }}</span>
+                  </td>
+                  <td>
+                    <span class="name">{{member?.name}}</span>
+                  </td>
+                  <td>
+                    <span class="name">{{ member?.gender | enum: genderEnum }}</span>
+                  </td>
+                  <td>
+                    <span class="name">{{member?.email}}</span>
+                  </td>
+                  <td>
+                    <a [href]="member?.link_facebook" class="name">{{member?.link_facebook}}</a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

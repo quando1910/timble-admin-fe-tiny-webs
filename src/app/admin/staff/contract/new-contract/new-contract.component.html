@@ -1,0 +1,353 @@
+<div class="container-fluid" *ngIf="!isResizing">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2>
+          <a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth" (click)="toggleFullWidth()">
+            <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+            <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+          </a> Hợp Đồng
+        </h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin']"><i class="icon-home"></i></a></li>                            
+          <li class="breadcrumb-item">Hợp Đồng</li>
+          <li class="breadcrumb-item active">Tạo Mới</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="row clearfix">
+    <div class="col-md-6">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Tạo mới hợp đồng</h2>
+            </div>
+            <div class="body">
+              <form [formGroup]="formNewContract">
+                <div class="form-group">
+                  <label>Tên đại diện</label>
+                  <input formControlName="name"
+                         class="form-control"
+                         name="text"
+                         placeholder="Nhập tên">
+                </div>
+                <div class="form-group">
+                  <label>Số điện thoại</label>
+                  <input formControlName="phone"
+                         placeholder="Nhập SĐT"
+                         class="form-control"
+                         name="text">
+                </div>
+                <div class="form-group">
+                  <label>Link facebook</label>
+                  <input  formControlName="linkFb"
+                          placeholder="Nhập đường link facebook"
+                          class="form-control"
+                          name="text">
+                </div>
+                <div class="form-group">
+                  <label>Giới tính</label>
+                  <br />
+                  <label class="fancy-radio">
+                    <input type="radio" name="gender" formControlName="gender" value="male" required
+                      data-parsley-errors-container="#error-radio">
+                    <span><i></i>Nam</span>
+                  </label>
+                  <label class="fancy-radio">
+                    <input type="radio" name="gender" formControlName="gender" value="female">
+                    <span><i></i>Nữ</span>
+                  </label>
+                </div>
+                <div class="form-group">
+                  <label for="food">Trường</label>
+                  <br />
+                  <ng-multiselect-dropdown name="multiSelect"
+                                           formControlName="schooleName"
+                                           [placeholder]="'chọn'"
+                                           [data]="listSchool"
+                                           [settings]="dropdownSettings">
+                  </ng-multiselect-dropdown>
+                </div>
+                <div class="row">
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <label>Nhóm/ Lớp</label>
+                      <input formControlName="groupName" class="form-control" name="text">
+                    </div>
+                  </div>
+                  <div class="col-md-6 col-sm-12">
+                    <div class="form-group">
+                      <label>Năm học</label>
+                      <input formControlName="schooleYear" class="form-control" name="text">
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                      <label>Sĩ số lớp</label>
+                      <input formControlName="totalCustomer" class="form-control" name="text">
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                      <label>Tổng nam</label>
+                      <input formControlName="toalMale" class="form-control" name="text">
+                    </div>
+                  </div>
+                  <div class="col-md-4 col-sm-12">
+                    <div class="form-group">
+                      <label>Tổng nữ</label>
+                      <input formControlName="totalFemale" class="form-control" name="text">
+                    </div>
+                  </div>
+                </div>
+                <br>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-12">
+          <div class="card">
+            <div class="header">
+              <h2>Gói chụp - quay</h2>
+            </div>
+            <div class="body">
+              <form [formGroup]="formPacketShooting">
+                <div class="form-group">
+                  <label for="food">Chọn gói chụp</label>
+                  <br />
+                  <ng-multiselect-dropdown name="multiSelect"
+                                           formControlName="packetShooting"
+                                           [placeholder]="'chọn'"
+                                           [settings]="dropdownSettingsPackage"
+                                           [data]="package"
+                                           (onSelect)="chosePacketShooting($event)"
+                                           (onDeSelect)="unChosePacketShooting($event)">
+                  </ng-multiselect-dropdown>
+                </div>
+                <div class="form-group">
+                  <label for="food">Danh sách đồ đi kèm</label><br/>
+                  <span *ngFor="let data of properties" class="badge badge-primary p-b-2">{{ data.name }}</span>
+                </div>
+                <div class="form-group">
+                  <label for="food">Phụ kiện book thêm</label>
+                  <br />
+                  <ng-multiselect-dropdown name="multiSelect"
+                                           [placeholder]="'chọn'"
+                                           formControlName="bookMore"
+                                           [settings]="dropdownSettingsPackage"
+                                           [data]="bookMoreOptions"
+                                           (onSelect)="choseBookMore($event)"
+                                           [settings]="dropdownSettings">
+                  </ng-multiselect-dropdown>
+                </div>
+                <div class="form-group">
+                  <span class="p-l-0">Thành tiền dự kiến:</span>
+                  <span class="p-l-10">0</span><br/>
+                  <div class="row p-t-10 p-b-10">
+                    <div class="col-sm-2">
+                      <span class="p-l-0">Đặt cọc:</span>
+                    </div>
+                    <div class="col-sm-7">
+                      <input formControlName="bookMore" class="form-control" name="text">
+                    </div>
+                  </div>
+                  <span class="p-l-0">Số dư còn lại:</span>
+                  <span class="p-l-10">0</span><br/>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="card">
+        <div class="header">
+          <h2>Lịch trình</h2>
+        </div>
+        <div class="body">
+          <form [formGroup]="formPlan">
+            <div formArrayName="dateFormArray"
+                 *ngFor="let item of formPlan.get('dateFormArray').controls; let i = index;"
+                 class="form-group">
+              <label for="text-input4">Ngày chụp {{ i + 1 }}</label>
+              <div [formGroupName]="i" class="row">
+                <div class="col-sm-9">
+                  <div class="input-group">
+                    <input class="form-control"
+                           placeholder="yyyy-mm-dd"
+                           name="dp"
+                           formControlName="date"
+                           #d="ngbDatepicker"
+                           ngbDatepicker>
+                    <div class="input-group-append">
+                      <button class="btn btn-outline-secondary calendar fa fa-calendar"
+                              (click)="d.toggle()"
+                              type="button">
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="!i else btnDelete" class="col-sm-3">
+                  <button (click)="addItemPlan()" type="button" class="btn btn-primary mr-1"><i class="fa fa-plus-square"></i></button>
+                </div>
+                <ng-template #btnDelete>
+                  <div class="col-sm-3">
+                    <button (click)="deleteItemPlan(i)" type="button" class="btn btn-danger mr-1"><i class="fa fa-trash-o"></i></button>
+                  </div>
+                </ng-template>
+              </div>
+            </div>
+            <br />
+            <div class="col-md-12">
+              <app-tabs (addPlanEmit)="addPlan($event)"
+                        (removePlanEmit)="removePlan($event)"
+                        (editPlanEmit)="editPlan($event)"
+                        [tabs]="tabs">
+              </app-tabs>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="card">
+        <div class="header">
+          <div class="row">
+            <div class="col-sm-3">
+              <h2>Phát sinh</h2>
+            </div>
+            <div class="col-sm-3 offset-sm-6">
+              <button type="button"
+                      (click)="openModalIncurred(IncurredItemTable,'lg')"
+                      class="btn btn-primary mr-1 float-right"><i class="fa fa-plus-square"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="body">
+          <div class="overflow-auto">
+            <table *ngIf="incurreds.length" class="table table-bordered table-custom">
+              <thead>
+                <tr>
+                  <th>Tên sản phẩm</th>
+                  <th>Giá</th>
+                  <th>Số lượng</th>
+                  <th>Mô tả</th>
+                  <th>Thành tiền</th>
+                  <th class="fixed-col">Chỉnh sửa</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let item of incurreds; let i = index">
+                  <td>{{ item.content }}</td>
+                  <td>{{ item.price }}</td>
+                  <td>{{ item.amount }}</td>
+                  <td>{{ item.description }}</td>
+                  <td>{{ item.price * item.amount }}</td>
+                  <td class="fixed-col">
+                    <a href="javascript:void(0);"
+                       (click)="removeIncurredItem(i)"
+                       class="btn btn-danger mr-1"><i class="fa fa-trash-o"></i>
+                    </a>
+                    <a href="javascript:void(0);"
+                      (click)="openModalIncurred(IncurredItemTable, 'lg', i)"
+                      class="btn btn-warning"><i class="icon-pencil"></i>
+                    </a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body">
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="button" (click)="submitContract()" class="btn btn-primary w-100">Tạo hợp đồng</button>
+            </div>
+            <div class="col-sm-12">
+              <button type="button" class="btn btn-danger w-100">Hủy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<ng-template #formCretePlan let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Tạo lịch trình cho ngày</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formPlanContent">
+      <input formControlName="tabIndex" type="hidden">
+      <input formControlName="contentIndex" type="hidden">
+      <div class="form-group">
+        <label for="text-input4">Nội dung</label>
+        <input class="form-control" formControlName="content">
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Địa điểm</label>
+        <input class="form-control" formControlName="district">
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Thời gian</label>
+        <ngb-timepicker formControlName="time"></ngb-timepicker>
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Loại đồ</label>
+        <ng-multiselect-dropdown name="multiSelect"
+                                 [placeholder]="'chọn'"
+                                 [settings]="dropdownSettingsPackage"
+                                 [data]="typeCloth"
+                                 formControlName="category"
+                                 [settings]="dropdownSettings">
+        </ng-multiselect-dropdown>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="submitFormPlanContent()">Tạo plan</button>
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Close click')">Thoát</button>
+  </div>
+</ng-template>
+
+<ng-template #IncurredItemTable let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Phát sinh</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formIncurred">
+      <input type="hidden" class="form-control" formControlName="index">
+      <div class="form-group">
+        <label for="text-input4">Nội dung</label>
+        <input type="text" class="form-control" formControlName="content">
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Số lượng</label>
+        <input type="text" class="form-control" formControlName="amount">
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Đơn giá</label>
+        <input type="text" class="form-control" formControlName="price">
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Mô tả</label>
+        <input  type="text" class="form-control" formControlName="description">
+      </div>
+      <div class="form-group">
+        <label for="text-input4">Thành tiền</label>
+        <input type="text" class="form-control" formControlName="totalPrice" disabled>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-primary" (click)="submitFormIncurred()">Sửa</button>
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Close click')">Thoát</button>
+  </div>
+</ng-template>

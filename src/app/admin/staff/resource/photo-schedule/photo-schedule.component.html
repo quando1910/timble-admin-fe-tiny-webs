@@ -1,0 +1,199 @@
+<div class="container-fluid">
+	<div class="row clearfix">
+		<div class="col-lg-12 col-md-12">
+			<div class="card" >
+				<div class="header">
+					<h2 class="text-center">Danh sách lịch sắp tới đã được chia thợ</h2>
+				</div>
+				<div class="body project_report">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Ngày chụp</th>
+									<th>Hợp đồng</th>
+									<th>Thợ</th>
+								</tr>
+							</thead>
+							<tbody>
+								<!-- <tr *ngFor="let item of contract.contracts; let i = index">
+									<td>
+										<span class="badge" [class.badge-success]="item.picture_at" class="badge">SP</span>
+										<span class="badge" [class.badge-success]="item.video_at">VID</span>
+										<span class="badge" [class.badge-success]="item.paid_at">TT</span>
+									</td>
+									<td>{{ item.group }} - {{ item.school.name }}</td>
+									<td>Otto</td>
+									<td>
+										<ul class="list-unstyled team-info" *ngFor="let photoers of item.date_takens">
+											<span *ngIf="photoers.photographer_date_takens.length === 0">Chưa có thợ chụp</span>
+											<li class="pd-r-20" placement="top" ngbTooltip="{{photoer.user.name}}" *ngFor="let photoer of photoers.photographer_date_takens">
+												<span *ngIf="photoer.user">{{photoer.user.name}}</span>
+											</li>
+										</ul>
+									</td>
+								</tr> -->
+							</tbody>
+						</table>
+					</div>
+				</div>
+					<!-- <div class="footer">
+						<div class="accordion custom" id="accordion">
+								<div class="card-header" id="headingOne">
+									<h5 class="mb-2">
+										<button class="btn btn-link collapsed text-primary"
+											type="button" (click)="toggleCollepseGeneral(i1)">Chi Tiết</button>
+									</h5>
+								</div>
+								<div class="collapse" [ngClass]="{'show':collepse == i1}">
+									<div class="card-body">
+										<ul class=" list-unstyled basic-list">
+											<li>Tổng Show <span class="badge badge-primary">{{contract.contracts.length}}</span></li>
+											<li>Thuê Đồ Combo <span class="badge badge-primary">{{detailValue[i1][0]}}</span></li>
+											<li>Thuê đồ concept <span class="badge badge-primary">{{contract.contracts.city}}</span></li>
+											<li>Chụp đêm <span class="badge badge-primary">{{detailValue[i1][1]}}</span></li>
+											<li>Video <span class="badge badge-primary">{{detailValue[i1][2]}}</span></li>
+											<li>Trang trí <span class="badge badge-primary">{{detailValue[i1][3]}}</span></li>
+											<li>Số thợ dự kiến <span class="badge badge-primary">{{detailValue[i1][4]}}</span></li>
+										</ul>
+									</div>
+								</div>
+						</div>
+					</div> -->
+			</div>
+		</div>
+	</div>
+
+  <div class="row clearfix">
+    <div class="col-lg-7 col-md-12">
+      <div class="card" >
+				<div class="header">
+					<h2 class="text-center">Ngày cần chia thợ gần nhất</h2>
+				</div>
+				<div class="body project_report">
+					<div class="table-responsive">
+						<table class="table">
+							<thead>
+								<tr>
+									<th>Ngày</th>
+									<th>Tổng show</th>
+									<th>Số thợ</th>
+									<th>Hợp đồng</th>
+									<th>Chia lịch</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr *ngFor="let dateTaken of dateTakens; let i = index">
+									<td>
+										{{ dateTaken.date_taken | date: 'dd/MM' }}
+									</td>
+									<td>
+										{{ dateTaken.total_date }}
+									</td>
+									<td>{{ dateTaken.totalPhotos }}</td>
+									<td>
+										<a>
+											<div *ngFor="let contract of dateTaken.contracts">
+												{{ contract.group }} - {{ contract.school.name }}
+												<ul 
+													class="list-unstyled team-info info-schedule"
+													*ngIf="contract.date_takens">
+													<li 
+														class="pd-r-20" 
+														placement="top" 
+														ngbTooltip="{{photoer.user.name}}"
+														*ngFor="let photoer of contract.date_takens.photographer_date_takens">
+														<img src="assets/img/photo.jpg" alt="Avatar">
+													</li>
+												</ul>
+											</div>
+										</a>
+									</td>
+									<td>
+										<button 
+											type="button" 
+											class="btn btn-outline-secondary mr-1"
+											(click)="openModal(formSchedule,'lg', dateTaken.date_taken, dateTaken.contracts)">
+											<span 
+												class="icon-magnifier" 
+												aria-hidden="true">
+											</span>
+										</button>
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-5 col-md-12">
+      <div class="card" >
+				<div class="header">
+					<h2 class="text-center">Danh sách thợ chụp hôm nay</h2>
+				</div>
+				<div class="body project_report">
+					<div class="table-responsive">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #formSchedule let-modal>
+  <div class="modal-body custom-photo-modal">
+		<h4 class="modal-title">Chia ca chụp cho {{formInfo.date | date: 'dd/MM/yyyy'}}</h4>
+		<p-tabView class="padding-minus" (onChange)="handleChange($event)">
+			<p-tabPanel [header]="contract.group + ' - ' + contract.school.name" *ngFor="let contract of formInfo.contracts; let i = index" [selected]="i == 0">
+				<div class="form-group">
+						<label>Thông tin</label><br>
+						<b class="pd-r-20">Chủ hợp đồng:</b><span>{{contract.member.name}}</span><br>
+						<b class="pd-r-20">SDT:</b><span>{{contract.member.phone_number}}</span><br>
+						<b class="pd-r-20">Sĩ số:</b><span>{{contract.total_member}}</span><br>
+					</div>
+				<div class="form-group">
+					<label>Thợ chụp</label>
+					<ng-multiselect-dropdown name="photographer"
+																	[placeholder]="'chọn thợ chụp'"
+																	[data]="listPhotos"
+																	[(ngModel)]="photoAssign"
+																	(onSelect)="onPhotoSelect($event)"
+																	(onDeSelect)="onPhotoDeSelect($event)"
+																	[settings]="dropdownSettings">
+					</ng-multiselect-dropdown>
+				</div>
+				<div class="card chat-app custom-list">
+					<label>Chia vai trò</label>
+					<div id="plist" class="people-list">
+						<ul class="list-unstyled chat-list mt-2 mb-0">
+							<li class="clearfix photo-item" *ngFor="let photo of choosePhotos; let ind = index">
+								<img src="assets/images/xs/avatar2.jpg" alt="avatar" />
+								<div class="about">
+									<div class="name">{{photo.user.name}}</div>
+									<div class="status"> 
+										<ng-multiselect-dropdown name="role"
+																		[placeholder]="'chọn vai trò'"
+																		[data]="roles"
+																		[(ngModel)]="choosePhotos[ind].photographer_role"
+																		[settings]="dropdownSettings2">
+										</ng-multiselect-dropdown>
+									</div>
+								</div>
+								<a role="button" class="boxs-close" (click)="removePhoto(photo)"><i class="fa fa-close"></i></a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</p-tabPanel>
+	</p-tabView>
+  </div>
+  <div class="modal-footer">
+		<ng-container *ngIf="newPhotos.length > 0">
+			<button type="button" class="btn btn-primary w-100" (click)="createPhoto()">Tạo lịch</button>
+		</ng-container>
+		<ng-container *ngIf="newPhotos.length == 0">
+			<app-alert-message [options]="alertMessage"></app-alert-message>
+		</ng-container>
+  </div>
+</ng-template>

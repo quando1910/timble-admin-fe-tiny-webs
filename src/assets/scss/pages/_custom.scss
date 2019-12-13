@@ -1,0 +1,248 @@
+.custom-list {
+  .people-list {
+    position: unset;
+    width: auto;
+    .chat-list {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      .photo-item {
+        margin: 0 15px;
+        margin-bottom: 25px;
+        position: relative;
+        box-shadow: 4px 5px 12px 3px #f0f0f0;
+        @media only screen and (min-width: 768px) {
+          flex: 0 0 45%;
+        }
+        .about {
+          display: inline-block;
+          width: 80%;
+        }
+        .boxs-close {
+          position: absolute;
+          top: 0px;
+          right: 10px;
+          font-size: 20px;
+        }
+      }
+    }
+  }
+  @media only screen and (max-width: 767px) {
+    .people-list {
+      height: auto;
+      overflow: unset;
+      display: block;
+      .photo-item {
+        flex: 0 0 100%;
+      }
+    }
+  }
+}
+.padding-minus {
+  .ui-tabview {
+    margin: 0 -1rem;
+    padding: 0;
+    padding-top: 20px;
+  }
+  .ui-tabview-panels {
+    border-left: none !important;
+    border-right: none !important;
+    border-bottom: none !important;
+  }
+}
+
+.pictures-btn {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  z-index: 1000;
+  padding: 0;
+  height: 30px;
+  cursor: pointer;
+  .pictures-content {
+    border-top-left-radius: 5px;
+    height: 100%;
+    background-color: #03a84e;
+    color: white;
+    text-align: center;
+    overflow: scroll;
+    padding: 0 20px;
+    select {
+      width: 60%;
+    }
+    input {
+      width: 30px;
+    }
+    span {
+      line-height: 29px;
+    }
+    .fa-desktop {
+      padding-right: 10px;
+    }
+    .fa-minus, .fa-close, .fa-save {
+      float: right;
+      line-height: 29px;
+      font-size: 20px;
+    }
+    .fa-save {
+      padding-right: 15px;
+    }
+  }
+  .desc, .toggle-content {
+    display: none;
+  }
+}
+.photo-selection {
+  .active {
+    height: 70%;
+    .desc, .toggle-content {
+      display: block !important;
+      padding-top: 15px;
+      padding-bottom: 15px;
+    }
+    .toggle-content {
+      background-color: #f4f7f6;
+    }
+  }
+}
+.custom-photo-modal {
+  .ui-state-default:nth-child(4n+1) {
+    background-color: #3C89DA !important;
+  }
+  .ui-state-default:nth-child(4n+2) {
+    background-color: #f3ad06 !important;
+  }
+  .ui-state-default:nth-child(4n+3) {
+    background-color: #22af46;
+  }
+  .ui-state-default:nth-child(4n) {
+    background: linear-gradient(45deg, pink, #fbc1cb) !important;
+  }
+  .ui-state-default {
+    outline: none;
+    border: none !important;
+    margin: 0 !important;
+    span {
+      color: white !important;
+    }
+  }
+  .ui-state-active {
+    margin-top: -0.86em !important;
+    a {
+      padding-top: 1em !important;
+      padding-bottom: 1em !important;
+    }
+  }
+}
+
+.ui-steps .ui-steps-item {
+  width: 25%;
+}
+.ui-steps > ul {
+display: flex;
+justify-content: space-evenly;
+}
+
+.ui-steps.steps-custom {
+  margin-bottom: 30px;
+}
+
+.ui-steps.steps-custom .ui-steps-item .ui-menuitem-link {
+  height: 10px;
+  padding: 0 1em;
+}
+
+.ui-steps.steps-custom .ui-steps-item .ui-steps-number {
+  background-color: #0081c2;
+  color: #FFFFFF;
+  display: inline-block;
+  width: 36px;
+  border-radius: 50%;
+  margin-top: -14px;
+  margin-bottom: 10px;
+}
+
+.ui-steps.steps-custom .ui-steps-item .ui-steps-title {
+  color: #555555;
+}
+
+.modal-open .modal {
+  display: flex !important;
+  align-items: center !important;
+  .modal-dialog {
+    flex-grow: 1;
+    .center-text {
+      text-align: center;
+    }
+  }
+}
+
+.tab-view-custom {
+  .ui-tabview {
+    .ui-tabview-panels {
+      border: none !important;
+      border-radius: 7px !important;
+    }
+    .ui-tabview-nav {
+      li {
+        border-radius: 7px 7px 0 0 !important;
+        outline: none;
+        -webkit-highlight: none;
+        background-color: white !important;
+        border-color: white !important;
+      }
+      .ui-state-active {
+        background-color: #49c5b6 !important;
+        border-color: #49c5b6 !important;
+      }
+    }
+  }
+}
+
+.contract-detail {
+  .card {
+    background-color: #f4f7f6;
+  }
+}
+
+
+.hiring {
+  .ui-dropdown-label{
+    background-color: #ffc107;
+  }
+}
+
+.return {
+  .ui-dropdown-label{
+    background-color: #28a745;
+    color: white;
+  }
+}
+
+.costume-row-label {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  transform: translateY(-50%);
+}
+.costume-row-name {
+  padding: 7px;
+  white-space: nowrap;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.btn-social-fb {
+  background-color: #3b5998; 
+  color: white;
+}
+
+.btn-social-google {
+  background-color: #ea4335; 
+  color: white;
+}
+
+.btn-sms {
+  background-color: #17a2b8; 
+  color: white;
+}

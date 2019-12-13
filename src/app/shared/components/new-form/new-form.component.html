@@ -1,0 +1,71 @@
+<ng-content select="[notice]"></ng-content>
+<div class="row">
+  <div class="col-md-8 offset-md-2">
+    <form *ngIf="renderView" [formGroup]="dataForm" (ngSubmit)="onSubmit()">
+      <div class="form-group" *ngFor="let item of renderView">
+        <label *ngIf="item.label"><b>{{item.label}}</b></label>
+        <div [ngSwitch]="item.inputType">
+          <ng-container *ngSwitchCase="'hidden'">
+            <input type="text" [formControlName]="item.key" class="form-control" hidden />
+            <span>{{dataForm.get(item.key).value}}</span>
+          </ng-container>
+          <ng-container *ngSwitchCase="'input'">
+            <input type="text" [formControlName]="item.key" class="form-control"
+              [ngClass]="{ 'is-invalid': submitted && f[item.key].errors }" />
+          </ng-container>
+          <ng-container *ngSwitchCase="'select'">
+            <!-- <nb-select *ngIf="item.valueList && item.valueList[0].key" [formControlName]="item.key"
+              [ngClass]="{'col-md-6': true, 'is-invalid': submitted && f[item.key].errors }" style="padding: 0">
+              <nb-option *ngFor="let sel of item.valueList" [value]="sel.key">
+                {{sel.value}}
+              </nb-option>
+            </nb-select> -->
+            <!-- <nb-select *ngIf="!item.valueList || !item.valueList[0].key" [formControlName]="item.key"
+              [(selected)]="item.valueList[0]"
+              [ngClass]="{'col-md-6': true, 'is-invalid': submitted && f[item.key].errors }" style="padding: 0">
+              <nb-option *ngFor="let sel of item.valueList" [value]="sel">
+                {{sel}}
+              </nb-option>
+            </nb-select> -->
+          </ng-container>
+          <ng-container *ngSwitchCase="'datetimepicker'">
+              <p-calendar [formControlName]="item.key" [showTime]="true"></p-calendar>
+          </ng-container>
+          <ng-container *ngSwitchCase="'datepicker'">
+            <p-calendar [formControlName]="item.key"></p-calendar>
+          </ng-container>
+          <ng-container *ngSwitchCase="'radio'">
+            <div class="ui-g" style="width:250px;margin-bottom:10px">
+              <div class="ui-g-12">
+                <p-radioButton
+                  class="col-md-1 col-lg-12"
+                  *ngFor="let sel of item.valueList"
+                  [name]="item.key" 
+                  [value]="sel.value" 
+                  [formControlName]="item.key"
+                  [label]="sel.key" 
+                  inputId="opt1">
+                </p-radioButton>
+              </div>
+            </div>
+          </ng-container>
+          <ng-container *ngSwitchCase="'textarea'">
+            <textarea  placeholder="Textarea" [formControlName]="item.key"></textarea>
+          </ng-container>
+          <ng-container *ngSwitchCase="'outside'">
+            <ng-content></ng-content>
+          </ng-container>
+          <div *ngIf="item.message && submitted && f[item.key] && f[item.key].errors" class="invalid-feedback"
+            style="display: block">
+            <div *ngFor="let msg of item.message">{{msg}}</div>
+          </div>
+        </div>
+      </div>
+      <hr>
+      <div class="form-group">
+        <button class="btn btn-primary col-md-6 offset-md-3">Submit</button>
+        <ng-content select="[action]"></ng-content>
+      </div>
+    </form>
+  </div>
+</div>

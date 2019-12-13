@@ -1,0 +1,70 @@
+<div class="row clearfix">
+  <div class="col-lg-4 col-md-12">
+    <div class="card" *ngIf="currentDate">
+      <div class="header">
+        <h2>Danh sách trang phục</h2>
+      </div>
+      <div class="body">
+        <div class="list-group">
+          <div *ngFor="let item of packages"
+            class="list-group-item list-group-item-action flex-column align-items-start">
+            <div class="d-flex w-100 justify-content-between">
+              <h6 class="mb-1">{{item.name}}</h6>
+              <a (click)="addProperties(item.properties)"><i class="fa fa-plus-square"></i></a>
+            </div>
+            <p *ngFor="let property of item.properties" [ngClass]="{'mb-1': true, 'text-success': checkAvailable(property.id) }">
+              {{property.name}}
+              <a (click)="addProperty(property)"><i class="fa fa-plus-circle"></i></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-lg-8 col-md-12">
+    <div class="card">
+      <div class="header">
+        <h2>Khách hàng</h2>
+        <small *ngIf="guest">{{guest.name}} - {{guest.phone_number}} - {{guest.identify}}</small> 
+      </div>
+      <div class="header">
+        <h2>Ngày thuê</h2>
+        <small class="text-danger" *ngIf="!currentDate">Bạn cần set ngày thuê đồ đầu tiên!</small> <br>
+        <p-calendar [(ngModel)]="currentDate"></p-calendar><br><br>
+        <small *ngIf="currentDate">Ngày thuê đồ của bạn là: {{currentDate | date: 'yyyy/MM/dd'}}</small> 
+      </div>
+      <div class="header">
+        <h2>Trang Phục Thuê <small>Danh sách các trang phục được chọn</small> </h2>
+      </div>
+      <div class="body table-responsive">
+        <table class="table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Trang phục/ Phụ kiện</th>
+              <th>Số lượng</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let proper of propertiesChoose; let i = index">
+              <th scope="row">{{i + 1}}</th>
+              <td>{{proper.name}}</td>
+              <td><input type="text" value="1" [(ngModel)]="propertiesChoose[i].amount"></td>
+              <td><i class="icon-close" (click)="removeProperty(proper.property_id)"></i></td>
+            </tr>
+          </tbody>
+        </table>
+        <button 
+          *ngIf="propertiesChoose.length > 0" 
+          style="float:right" 
+          type="button"
+          [disabled]="!currentDate || propertiesChoose.length === 0"
+          class="btn btn-icon btn-success" 
+          (click)="createGuestHistory()">
+          Tạo đơn
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

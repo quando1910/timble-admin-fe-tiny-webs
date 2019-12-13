@@ -1,0 +1,145 @@
+<div class="row clearfix">
+	<div class="col-lg-12">
+		<div class="card">
+			<div class="header">
+				<h2>Thông tin thuê trang phục</h2>
+				<ul class="header-dropdown">
+					<li class="dropdown">
+						<a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+							aria-expanded="false"></a>
+						<ul class="dropdown-menu dropdown-menu-right">
+							<li><a href="javascript:void(0);">Print Invoices</a></li>
+							<li role="presentation" class="divider"></li>
+							<li><a href="javascript:void(0);">Export to XLS</a></li>
+							<li><a href="javascript:void(0);">Export to CSV</a></li>
+							<li><a href="javascript:void(0);">Export to XML</a></li>
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<div class="body" *ngIf="guestHiring">
+				<h3>Chi tiết: <strong class="text-primary">#{{guestHiring.id}}</strong></h3>
+				<ul class="nav nav-tabs-new2">
+					<li class="nav-item inlineblock"><a class="nav-link active" [routerLink] = "[]" fragment="details" [ngClass]="{'active':fragment == 'details'}">Details</a></li>
+					<li class="nav-item inlineblock"><a class="nav-link" [routerLink] = "[]" fragment="history" [ngClass]="{'active':fragment == 'history'}">History</a></li>
+				</ul>
+				<div class="tab-content">
+					<div class="tab-pane" [ngClass]="{'active': fragment == 'details'}">
+						<div class="row clearfix">
+							<div class="col-md-6 col-sm-6">
+								<address>
+									<strong>Khách hàng: {{guestHiring.name}}</strong><br>
+									SĐT: <a [href]="'tel:' + guestHiring.phone_number">{{guestHiring.phone_number}}</a><br>
+									CMND: {{guestHiring.identify}}<br>
+								</address>
+							</div>
+							<div class="col-md-6 col-sm-6 text-right">
+								<p class="m-b-0"><strong>Order Date: </strong> Jun 15, 2018</p>
+								<p class="m-b-0"><strong>Order Status: </strong> <span class="badge badge-warning m-b-0">Pending</span></p>
+								<p><strong>Order ID: </strong> #123456</p>
+							</div>
+						</div>
+						<div class="row clearfix">
+							<h6>Trang phục/ phụ kiện chưa trả</h6>
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table class="table table-hover">
+										<thead class="thead-dark">
+											<tr>
+												<th>#</th>
+												<th>Tên trang phục</th>
+												<th class="hidden-sm-down">Số lượng</th>
+												<th>Đơn giá</th>
+												<th></th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let item of guestHiring.guest_properties; let i = index">
+												<td>{{i + 1}}</td>
+												<td>{{item.property.name}}</td>
+												<td class="hidden-sm-down">{{item.amount}}</td>
+												<td>{{item.property.price}}</td>
+												<td class="project-actions">
+													<a class="btn btn-outline-secondary mr-1" href="javascript:void(0);"><i class="icon-pencil"></i></a>
+												</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<div class="row clearfix">
+							<div class="col-md-6">
+								<h5>Note</h5>
+								<p>Etsy doostang zoodles disqus groupon greplin oooj voxy zoodles, weebly ning heekya handango imeem
+									plugg dopplr jibjab, movity jajah plickers sifteo edmodo ifttt zimbra.</p>
+							</div>
+							<div class="col-md-6 text-right">
+								<p class="m-b-0"><b>Sub-total:</b> 2930.00</p>
+								<p class="m-b-0">Discout: 12.9%</p>
+								<p class="m-b-0">VAT: 12.9%</p>
+								<h3 class="m-b-0 m-t-10">USD 2930.00</h3>
+							</div>
+							<div class="hidden-print col-md-12 text-right">
+								<hr>
+								<button class="btn btn-outline-secondary mr-1"><i class="icon-printer"></i></button>
+								<button class="btn btn-primary">Submit</button>
+							</div>
+						</div>
+					</div>
+					<div class="tab-pane" [ngClass]="{'active':fragment == 'history'}">
+						<div class="row">
+							<div class="col-md-6 col-sm-6">
+								<address>
+									<strong>Khách hàng: {{guestHiring.name}}</strong><br>
+									SĐT: <a [href]="'tel:' + guestHiring.phone_number">{{guestHiring.phone_number}}</a><br>
+									CMND: {{guestHiring.identify}}<br>
+								</address>
+							</div>
+							<div class="col-md-6 col-sm-6 text-right">
+								<p class="m-b-0"><strong>Order Date: </strong> Jun 15, 2018</p>
+								<p class="m-b-0"><strong>Order Status: </strong> <span class="badge badge-warning m-b-0">Pending</span></p>
+								<p><strong>Order ID: </strong> #123456</p>
+							</div>
+						</div>
+						<div class="mt-40"></div>
+						<div class="row">
+							<h6>Lịch sử thuê/ trả</h6>
+							<div class="col-md-12">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>#</th>
+												<th>Ngày thực hiện</th>
+												<th>Thuê/Trả</th>
+												<th>Tên trang phục</th>
+												<th class="hidden-sm-down">Số lượng</th>
+											</tr>
+										</thead>
+										<tbody>
+											<tr *ngFor="let history of guestHiring.guest_histories; let i = index">
+												<td>{{i + 1}}</td>
+												<td>{{history.event_date | date: 'yyyy/MM/dd' : '+0700'}}</td>
+												<td>
+													<span 
+														class="badge" 
+														[ngClass]="{'badge-success': history.history_type, 'badge-warning': !history.history_type}">
+														{{history.history_type? 'trả' : 'thuê'}}
+													</span>
+												</td>
+												<td>{{history.property.name}}</td>
+												<td>{{history.amount}}</td>
+											</tr>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

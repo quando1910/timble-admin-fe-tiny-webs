@@ -1,0 +1,60 @@
+<div class="container-fluid">
+	<div class="row clearfix">
+		<div class="col-md-8">
+			<div class="card">
+				<div class="header">
+					<h2>Tạo đối tác</h2>
+				</div>
+				<div class="body">
+					<form #advForm="ngForm" (ngSubmit)="onSubmit(advForm.valid)">
+						<div class="form-group">
+							<label for="text-input1">Tên đối tác</label>
+							<input type="text" [(ngModel)]="data.name" class="form-control" name="namePartner" #namePartner="ngModel" [ngClass]="{'parsley-error':!namePartner.valid && (namePartner.touched || advForm.submitted)}" required maxlength="20">
+							<ul class="parsley-errors-list filled" *ngIf="!namePartner.valid && (namePartner.touched || advForm.submitted)">
+								<li class="parsley-required" *ngIf="namePartner.hasError('required')">Trường này không được trống.</li>
+								<li class="parsley-required" *ngIf="namePartner.hasError('maxlength')">Giá trị này quá dài. Nhiều nhất 20 kí tự.</li>
+							</ul>
+						</div>
+						<div class="form-group">
+							<label for="text-input2">Tên đơn vị</label>
+							<input type="text" [(ngModel)]="data.agency" class="form-control" name="agency" #agency="ngModel" [ngClass]="{'parsley-error':!agency.valid && (agency.touched || advForm.submitted)}" required minlength="5" maxlength="20">
+							<ul class="parsley-errors-list filled" *ngIf="!agency.valid && (agency.touched || advForm.submitted)">
+								<li class="parsley-required" *ngIf="agency.hasError('required')">Trường này không được trống.</li>
+								<li class="parsley-required" *ngIf="agency.hasError('minlength') || agency.hasError('maxlength')">Giá trị này quá dài. Ít nhất 5 kí tự. Nhiều nhất 20 kí tự.</li>
+							</ul>
+						</div>
+						<div class="form-group">
+							<label for="text-input2">Số điện thoại</label>
+							<input type="text" [(ngModel)]="data.phone_number" class="form-control" name="phone_number" #phone_number="ngModel" [ngClass]="{'parsley-error':!phone_number.valid && (phone_number.touched || advForm.submitted)}" required minlength="10">
+							<ul class="parsley-errors-list filled" *ngIf="!phone_number.valid && (phone_number.touched || advForm.submitted)">
+								<li class="parsley-required" *ngIf="phone_number.hasError('required')">Trường này không được trống.</li>
+								<li class="parsley-required" *ngIf="phone_number.hasError('minlength') || phone_number.hasError('maxlength')">Giá trị này quá ngắn. Ít nhất 10 kí tự.</li>
+							</ul>
+						</div>
+						<div class="form-group">
+							<label for="text-input2">Địa chỉ</label>
+							<input type="text" [(ngModel)]="data.address" class="form-control" name="address" #address="ngModel" [ngClass]="{'parsley-error':!address.valid && (address.touched || advForm.submitted)}" required minlength="10">
+							<ul class="parsley-errors-list filled" *ngIf="!address.valid && (address.touched || advForm.submitted)">
+								<li class="parsley-required" *ngIf="address.hasError('required')">Trường này không được trống.</li>
+								<li class="parsley-required" *ngIf="address.hasError('minlength') || address.hasError('maxlength')">Giá trị này quá ngắn. Ít nhất 10 kí tự.</li>
+							</ul>
+						</div>
+            <div class="form-group">
+							<label for="text-input2">Link Facebook</label>
+							<input type="text" [(ngModel)]="data.link_facebook" class="form-control" name="facebook" #facebook="ngModel" [ngClass]="{'parsley-error':!address.valid && (address.touched || advForm.submitted)}" required>
+							<ul class="parsley-errors-list filled" *ngIf="!facebook.valid && (facebook.touched || advForm.submitted)">
+								<li class="parsley-required" *ngIf="facebook.hasError('required')">Trường này không được trống.</li>
+							</ul>
+						</div>
+            <div class="form-group">
+              <label for="text-input4">Ảnh đại diện</label><br>
+              <button class="btn btn-warning mr-1"><i class="icon-camera text-light"></i></button>
+            </div>
+						<br />
+						<button type="submit" class="btn btn-primary">Tạo đối tác</button>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

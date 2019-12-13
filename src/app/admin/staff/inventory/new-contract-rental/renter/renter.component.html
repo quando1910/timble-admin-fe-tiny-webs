@@ -1,0 +1,34 @@
+<ng-container *ngIf="!queryParam">
+  <div class="fancy-checkbox">
+    <label><input type="checkbox" (click)="toggle()"><span>Bật chế độ tạo mới khách hàng</span></label>
+  </div>
+  <ng-container *ngIf="!toggleView">
+    <h4>Tạo khách hàng mới</h4>
+    <app-new-form 
+      [inputForm]="dataForm" 
+      [renderView]="renderView" 
+      (submitForm)="submit($event)">
+    </app-new-form>
+  </ng-container>
+  <ng-container *ngIf="toggleView">
+    <h4>Tìm kiếm khách hàng</h4>
+    <div class="form-group">
+      <label><b>nhập SĐT hoặc CMND:</b></label>
+      <input type="text" class="form-control" [(ngModel)]="phoneIndentityGuest" />
+    </div>
+    <button class="btn btn-primary col-md-4 offset-md-4" (click)="searchGuest()">Tìm kiếm</button>
+  </ng-container>
+</ng-container>
+<ng-container *ngIf="queryParam">
+  <h4>Tìm kiếm đối tác</h4>
+  <div class="form-group">
+    <ng-multiselect-dropdown name="multiSelect"
+                              [placeholder]="'chọn đối tác'"
+                              [data]="partners"
+                              [(ngModel)]="selectedPartner"
+                              [settings]="dropdownSettings">
+    </ng-multiselect-dropdown>
+  </div>
+  <button class="btn btn-primary col-md-4 offset-md-4" (click)="applyPartner()">Áp dụng</button>
+</ng-container>
+

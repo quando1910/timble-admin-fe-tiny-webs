@@ -1,0 +1,279 @@
+<div class="public-contract container-fluid" *ngIf="contract">
+  <div class="contract row clearfix col-md-12">
+    <div class="card">
+      <div class="body project_report">
+        <div class="container contract-info-main">
+          <h3 class="center-head">Thông tin hợp đồng<br></h3>
+          <div class="row">
+            <div class="col-md-6 col-xs-12">
+              <div class="contracts-form">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="avatar"><img src="./assets/img/photographer.png" alt="Si" class="avatar-image">
+                      <h4 class="center-head">Bên A</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-8">
+                    <label>Họ và Tên: </label><b>Đỗ Hồng Quân</b>
+                    <a target="_blank" href="https://www.fb.com/dhquan19"><i aria-hidden="true"
+                        class="fa fa-facebook-official"></i></a><br>
+                    <label>Đơn vị: </label><b>The Classic Studio</b><br>
+                    <label>Địa chỉ: </label><b>42 Tống Phước Phổ,<br>P. Hòa Cường Bắc, Q. Hải Châu, Đà
+                      Nẵng</b><br><label> SĐT: </label><b><a href="tel: 0773420210">0773420210</a></b><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-xs-12">
+              <div class="contracts-form">
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="avatar">
+                      <img src="./assets/img/photographer.png" alt="Si" class="avatar-image">
+                      <h4 class="center-head">Bên B</h4>
+                    </div>
+                  </div>
+                  <div class="col-md-8" *ngIf="contract.member">
+                    <label>Họ và Tên: </label>
+                    <b>{{ contract.member.name }}</b>
+                    <a target="_blank"
+                      [attr.href]="contract.member.link_facebook ? contract.member.link_facebook : null"><i
+                        aria-hidden="true" class="fa fa-facebook-official"></i></a><br>
+                    <label>Số lượng thành viên: </label><b>{{ contract.total_member}}</b><br>
+                    <label>Đại diện của: </label><b>{{contract.group}} - {{contract.school.name}}</b><br>
+                    <label>SĐT: </label><b><a
+                        [attr.href]="contract.member.phone_number ? contract.member.phone_number : null">{{contract.member.phone_number}}</a></b><br>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-xs-12">
+      <div class="card" *ngIf="contract.date_takens && contract.date_takens.length > 0">
+        <div class="body">
+          <b>Lịch trình</b>
+          <div *ngFor="let date of contract.date_takens">
+            <div *ngFor="let plan of date.plans">
+              <div class="timeline-item" [attr.date-is]="plan.plan_time | date: 'HH:mm' : '+0700'">
+                <span><b>Tập trung:</b> {{plan.place}}</span><br>
+                <span><b>Trang phục:</b> {{plan.costume}}</span><br>
+                <span>{{plan.plan_time | date: 'MM/dd'}}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 col-xs-12">
+      <div class="card">
+        <div class="body project_report">
+          <div class="container contract-info-main">
+            <h5 class="price-contract">Các gói dịch vụ đã chọn</h5>
+            <table class="table">
+              <thead>
+                <tr class="row">
+                  <th class="col-md-4">Tên cụ thể</th>
+                  <th class="col-md-4">Cách tính tiền</th>
+                  <th class="col-md-4">Số lượng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <div *ngFor="let budget of budgets">
+                  <tr class="row" *ngIf="budget.type === 0">
+                    <td class="col-md-4">{{budget.name}}</td>
+                    <td class="col-md-4">{{statusCalc[budget.type]}}</td>
+                    <td class="col-md-4">{{budget.quantity}}</td>
+                  </tr>
+                </div> -->
+              </tbody>
+            </table>
+            <h5 class="price-contract">Các nội dung phát sinh</h5>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr class="row">
+                    <th class="col-md-4">Tên cụ thể</th>
+                    <th class="col-md-4">Cách tính tiền</th>
+                    <th class="col-md-4">Số lượng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <div *ngFor="let budget of budgets">
+                    <tr class="row" *ngIf="budget.type === 1">
+                      <td class="col-md-4">{{budget.name}}</td>
+                      <td class="col-md-4">Theo số lượng thuê</td>
+                      <td class="col-md-4">{{budget.quantity}}</td>
+                    </tr>
+                  </div> -->
+                </tbody>
+              </table>
+            </div>
+            <div class="bonus-info">
+              <h5 class="price-contract">Thông tin bổ sung</h5>
+              <p><b>Tiền cọc:</b>{{contract.deposit}}</p>
+              <b>Ghi chú:</b>
+              <p style="white-space: pre-wrap;">{{contract.note}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="body project_report">
+        <div id="contract" class="photographer-container photo-back">
+          <div class="container photo-meta">
+            <h3 class="title">Thợ chụp / quay</h3>
+            <div class="photographer-list" *ngIf="photographers">
+              <div class="detail-container" *ngFor="let item of photographers; let index = index">
+                <div class="detail">
+                  <img src="../../assets/img/photographer.png" alt="Si" class="detail-image">
+                </div>
+                <h4 class="detail-name">{{item.user.name}}</h4>
+                <span class="description">{{item.photographer_role}}</span><br>
+                <b>{{ item.date_taken | date: 'dd/MM' }}</b>
+                <div class="contact-container">
+                  <a :href="`tel: ${item.user.phone}`"><i class="fa fa-phone" aria-hidden="true"></i></a>
+                  <a target="_blank" href="https://www.fb.com/dhquan19"><i class="fa fa-facebook-official"
+                      aria-hidden="true"></i></a>
+                  <a target="_blank" href="https://www.fb.com/dhquan19"><i class="fa fa-instagram"
+                      aria-hidden="true"></i></a>
+                </div>
+              </div>
+            </div>
+            <div class="no-photo" *ngIf="photographers.length == 0">
+              <p>Chưa rõ thợ chụp</p>
+            </div>
+          </div>
+        </div>
+        <div class="container">
+          <h3 class="center-head">Các điều khoản cơ bản</h3>
+          <div role="tablist" aria-multiselectable="true" class="el-collapse">
+            <div class="el-collapse-item is-active">
+              <div role="tab" aria-expanded="true" aria-controls="el-collapse-content-6139"
+                aria-describedby="el-collapse-content-6139">
+                <div role="button" id="el-collapse-head-6139" tabindex="0" class="el-collapse-item__header is-active">
+                  Điều khoản về thanh toán <i class="header-icon el-icon-info"></i><i
+                    class="el-collapse-item__arrow el-icon-arrow-right is-active"></i></div>
+              </div>
+              <div role="tabpanel" aria-labelledby="el-collapse-head-6139" id="el-collapse-content-6139"
+                class="el-collapse-item__wrap">
+                <div class="el-collapse-item__content">
+                  <div>
+                    <p>
+                      <b>Về việc đặt cọc:</b> Hợp đồng chỉ có giá trị khi lớp tiến hành đặt cọc tiền và có lịch chụp cụ
+                      thể. Giá trị đặt cọc tối thiểu là 30% hợp đồng.<br><br>
+                      <b>Về việc thanh toán:</b> Sau khi chụp xong, lớp tiến hành thanh toán hết toàn bộ số tiền còn lại
+                      (bao gồm các phát sinh). Ảnh sẽ bắt đầu tính ngày sửa, khi lớp đã hoàn thành xong các thủ tục
+                      thanh toán &amp; trả đồ.<br>Các lớp sẽ có 7 ngày để thanh toán, kể từ khi chụp xong. Nếu quá thời
+                      hạn, số tiền còn lại sẽ được tính <b>phát sinh nợ</b>, dựa trên lãi ngân hàng.<br><br>
+                      <b>Về phương thức thanh toán:</b> Các lớp có thể tiến hành trả tiền trực tiếp (chú ý: nhận hóa
+                      đơn) hoặc chuyển khoản qua thông tin tài khoản của studio ở bên dưới ( có hình ảnh giấy tờ chuyển
+                      khoản đi kèm &amp; ghi rõ nội dung: "tên lớp - ngày chụp- tên đại diện").<br>
+                      ---------------------<br>
+                      STK - 100214849231113<br>
+                      Tên chủ thẻ - ĐỖ HỒNG QUÂN<br>
+                      Ngân hàng - Eximbank chi nhánh Hùng Vương - Đà Nẵng<br>
+                      ---------------------
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="el-collapse-item is-active">
+              <div role="tab" aria-expanded="true" aria-controls="el-collapse-content-7509"
+                aria-describedby="el-collapse-content-7509">
+                <div role="button" id="el-collapse-head-7509" tabindex="0" class="el-collapse-item__header is-active">
+                  Điều khoản về việc thuê trang phục <i class="header-icon el-icon-info"></i><i
+                    class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+                </div>
+              </div>
+              <div role="tabpanel" aria-labelledby="el-collapse-head-7509" id="el-collapse-content-7509"
+                class="el-collapse-item__wrap">
+                <div class="el-collapse-item__content">
+                  <div>
+                    <b>Về thời gian thử đồ:</b> Thành viên các lớp có thể thử đồ trước 2 ngày kể từ ngày chụp (Trường
+                    hợp ngoại lệ, vui lòng liên hệ trực tiếp studio).<br>
+                    Lớp cùng studio chọn ra khung giờ nhiều thành viên thử đồ nhất để studio dễ dàng xếp người quản lý,
+                    và phục vụ cho cả lớp.<br> <br> <b>Về việc thuê:</b> Thành viên các lớp có thử và mang về các trang
+                    phục thuộc các loại sau: quần, áo, những phụ kiện đi kèm với loại trang phục đó.<br>Riêng <b>vòng
+                      hoa, cà vạt, bằng cử nhân </b>, studio sẽ sắp xếp đem lên vào ngày chụp. Lý do vì các vật dụng này
+                    dễ hư và dễ mất, nên phát trước sẽ không được bảo quản tốt.<br>
+                    Sau khi chụp xong, lớp vui lòng tự sắp xếp và trả <b>vòng hoa, cà vạt, bằng cử nhân </b> về cho
+                    studio <b>ngay trong ngày</b>. Trường hợp trả trễ, studio tính phát sinh theo giá thuê mới. <a
+                      style="display: inline-block;">(tham khảo giá phát sinh thuê tại đây)</a><br> <br><b>Về việc
+                      trả:</b> Lớp có <b>đúng 1 ngày</b> sau khi chụp xong, để trả ít nhất 70% số trang phục. Số lượng
+                    trang phục còn lại phải hoàn thành trong ngày tiếp theo (ngày thứ 2). <br>
+                    Phát sinh sẽ bắt đầu tính từ <b>ngày thứ 3</b> trở đi, cho các bạn chưa trả trang phục, dựa trên
+                    bảng giá thuê trang phục. <a style="display: inline-block;">(tham khảo giá phát sinh thuê tại
+                      đây)</a><br><br>
+                    <b>Về việc bảo quản:</b>Các thành viên thuê đồ phải có trách nhiệm trong việc giữ gìn đồ đạc. Studio
+                    không nhận lại các trang phục lỗi, và những bạn sử dụng các trang phục này phải chi trả toàn bộ số
+                    tiền mua trang phục theo bảng giá niêm yết, <a style="display: inline-block;">(tham khảo giá đền
+                      quần áo tại đây)</a> trang phục hư là trang phục có 1 trong các tình trạng sau:
+                    <p>+ Bị rách, cháy xém, ố vàng và không thể fix được.</p>
+                    <p>+ Bị lem màu ( thường xảy ra với áo dài trắng, giặt chung với trang phục có màu).</p>
+                    <p>+ Bị mất, thất lạc. </p>
+                    <p>+ Bị ẩm mốc ( thường xảy ra với lớp chụp ngày mưa, hoặc vì lý do gì đó mà quần áo bị ướt, sau đấy
+                      về bỏ vào bao ko phơi ra).</p>
+                    <p>+ Tự ý thay đổi, may vá, sửa trang phục mà ko thể đưa về hiện trạng cũ được ( 1 trường hợp dễ
+                      hiểu là lên lai áo dài, điều này bình thường, nhưng nhiều bạn ko lên lai mà cắt luôn tà áo dài).
+                    </p>
+                    Ảnh sẽ bắt đầu tính ngày sửa khi trang phục được qua ít nhất 70% và hợp đồng đã thanh toán đầy đủ.
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="el-collapse-item is-active">
+              <div role="tab" aria-expanded="true" aria-controls="el-collapse-content-434"
+                aria-describedby="el-collapse-content-434">
+                <div role="button" id="el-collapse-head-434" tabindex="0" class="el-collapse-item__header is-active">
+                  Điều khoản về sửa ảnh, video <i class="header-icon el-icon-info"></i><i
+                    class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+                </div>
+              </div>
+              <div role="tabpanel" aria-labelledby="el-collapse-head-434" id="el-collapse-content-434"
+                class="el-collapse-item__wrap">
+                <div class="el-collapse-item__content">
+                  <div>
+                    <b>Thời gian sửa ảnh:</b> thời gian sửa ảnh bắt đầu kể từ khi trả 70% trang phục và thanh toán đầy
+                    đủ. Sau khi bắt đầu tính thời gian sửa, chúng tôi sẽ cần 3 ngày để làm bản demo ảnh, và thêm 2 ngày
+                    nữa để hoàn thiện toàn bộ album ảnh ( tức là mất 5 ngày kể từ ngày trả đồ xong, thì cả lớp sẽ có
+                    toàn bộ ảnh chỉnh và ảnh gốc)<br><br>
+                    <b>Thời gian sửa video:</b> cũng tính như cách trên. Sau đó 1,5 tuần, video hoàn thiện sẽ ra mắt.
+                    Trong khoảng thời gian chờ đợi, studio có thể tung ra thêm các trailer cho lớp xem và chia sẻ.<br>
+                    <br> <b>Thời gian giao ảnh in:</b> Với những lớp có ảnh in, sau khi chúng tôi giao link ảnh đầy đủ.
+                    Các bạn sẽ tiến hành chọn ảnh theo form studio cung cấp. <a style="display: inline-block;">hướng dẫn
+                      tại đây</a> Cả lớp sẽ có 1 tuần để điền thông tin và ảnh mong muốn in. Sau 1 tuần link sẽ bị khóa,
+                    3 tuần sau cả lớp sẽ được nhận ảnh in.<br> <br>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="el-collapse-item is-active">
+              <div role="tab" aria-expanded="true" aria-controls="el-collapse-content-3328"
+                aria-describedby="el-collapse-content-3328">
+                <div role="button" id="el-collapse-head-3328" tabindex="0" class="el-collapse-item__header is-active">
+                  Thông tin chi tiết <i class="header-icon el-icon-info"></i><i
+                    class="el-collapse-item__arrow el-icon-arrow-right is-active"></i>
+                </div>
+              </div>
+              <div role="tabpanel" aria-labelledby="el-collapse-head-3328" id="el-collapse-content-3328"
+                class="el-collapse-item__wrap">
+                <div class="el-collapse-item__content">
+                  <div>
+                    <p><b>Địa chỉ: 42 Tống Phước Phổ - Hải Châu- Đà Nẵng.</b></p>
+                    <p><b>SĐT: <a href="tel: 0777592561">0777592561</a> - Hậu cần Classic</b></p>
+                    <p><b>SĐT chịu trách nhiệm toàn bộ: <a href="tel: 0773420210">0773420210</a> (Mr. Quân)</b></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

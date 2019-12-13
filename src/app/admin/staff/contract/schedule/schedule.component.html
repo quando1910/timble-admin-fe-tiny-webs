@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-lg-8 col-md-12">
+      <div class="card" >
+        <div class="body project_report">
+          <div class="table-responsive">
+            <table class="table billing-history">
+              <thead>
+                <tr>
+                  <th>Ngày chụp</th>
+                  <th>Vai trò</th>
+                  <th>Lương</th>
+                  <th>Tình trạng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <ng-container *ngIf="tasks.length > 0">
+                  <tr *ngFor="let task of tasks">
+                    <td>
+                      <h6 class="billing-title">{{task.date_taken?.contract?.name}}</h6>
+                      <span class="text-muted">{{task.date_taken?.date_taken | date: 'yyyy/MM/dd' : '+0700'}}</span> - <span class="invoice-number">#{{task.date_taken?.contract?.code}}</span>
+                    </td>
+                    <td class="amount"><span>{{task.photographer_role}}</span></td>
+                    <td class="action"><a href="javascript:void(0);">{{task.salary}}</a></td>
+                    <td><span class="badge badge-warning m-b-0">Chưa trả</span></td>
+                  </tr>
+                </ng-container>
+                <ng-container *ngIf="!tasks.length">
+                  <p>Không có lịch nào trong tương lai</p>
+                </ng-container>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+  

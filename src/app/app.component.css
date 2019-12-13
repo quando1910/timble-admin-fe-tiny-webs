@@ -1,0 +1,7 @@
+.loading-scr {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  width: 100px;
+  z-index: 1000;
+}

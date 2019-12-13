@@ -1,0 +1,86 @@
+<div class="card container" *ngIf="members && members.length > 0">
+  <div class="header d-flex align-center left-right">
+    <h5>Thông tin cá nhân của các thành viên trong lớp</h5>
+    <button (click)="openDialog(dialogAddMember, 'lg')" class="btn btn-info">
+      <i class="icon-plus"></i>&nbsp;<span>Thêm thành viên</span>
+    </button>
+  </div>
+  <div class="body table-responsive">
+    <table class="table table-hover">
+      <thead class="thead-light">
+        <tr>
+          <th *ngFor="let item of headerTab">{{ item }}</th>
+        </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let member of members; let i = index">
+            <td>
+              <span class="name">{{i + 1 }}</span>
+            </td>
+            <td>
+              <span class="name">{{ member?.name }}</span>
+            </td>
+            <td>
+              <span class="name">{{ member?.phone_number }}</span>
+            </td>
+            <td>
+              <span class="name">{{ member?.gender | enum: genderEnum }}</span>
+            </td>
+            <td>
+              <span class="name">{{ member?.email }}</span>
+            </td>
+            <td>
+              <a [href]="member?.link_facebook" class="name">{{member?.link_facebook}}</a>
+            </td>
+            <td>
+              <a class="btn btn-outline-secondary mr-1" (click)="openEditDialog(dialogAddMember, 'lg', member)"><i
+                  class="icon-pencil"></i></a>
+              <a class="btn btn-outline-secondary" (click)="removeMember(member?.id)"><i class="icon-trash"></i></a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+<ng-template #dialogAddMember let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Thông tin thành viên</h4>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="registerForm" class="form-auth-small" (ngSubmit)="onSubmit()">
+      <input formControlName="id" hidden>
+      <input formControlName="_destroy" hidden>
+      <div class="form-group">
+        <label for="signup-email" class="control-label">Tên</label>
+        <input formControlName="name" type="string" class="form-control" placeholder="Tên của bạn">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">SĐT</label>
+        <input formControlName="phone_number" type="string" class="form-control" placeholder="SĐT">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Email</label>
+        <input formControlName="email" type="email" class="form-control" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Link Facebook</label>
+        <input formControlName="link_facebook" type="string" class="form-control" placeholder="Facebook">
+      </div>
+      <div class="form-group">
+        <label for="signup-password" class="control-label">Giới tính</label><br>
+        <label class="fancy-radio">
+          <input formControlName="gender" name="gender" value="0" type="radio" checked>
+          <span><i></i>Nữ</span>
+        </label>
+        <label class="fancy-radio">
+          <input formControlName="gender" name="gender" value="1" type="radio">
+          <span><i></i>Nam</span>
+        </label>
+      </div>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" (click)="modal.dismiss('Close click')">Thoát</button>
+    <button type="button" class="btn btn-primary" (click)="addMember()">Thêm</button>
+  </div>
+</ng-template>

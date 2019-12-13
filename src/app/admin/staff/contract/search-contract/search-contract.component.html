@@ -1,0 +1,87 @@
+<div class="container-fluid">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2>
+          <a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth" (click)="toggleFullWidth()">
+              <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+              <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+          </a> Hợp Đồng
+        </h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin']"><i class="icon-home"></i></a></li>                            
+          <li class="breadcrumb-item">Hợp Đồng</li>
+          <li class="breadcrumb-item active">Tìm Kiếm</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="row clearfix">
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="body">
+          <div class="input-group" id="adv-search">
+            <input type="text" class="form-control mr-1" placeholder="Search here..." />
+            <button type="button" class="btn btn-primary"><span class="icon-magnifier" aria-hidden="true"></span></button>
+          </div>
+        </div>
+        <div class="body">
+          <div class="form-group">
+            <label>Bộ Lọc</label>
+            <br/>
+            <label class="fancy-checkbox">
+              <input type="checkbox" name="checkbox">
+              <span>Payment</span>
+            </label>
+          </div>
+        </div>
+      </div>
+      <div class="card">
+        <div class="body project_report">
+          <div class="table-responsive">
+            <table class="table m-b-0 table-hover">
+              <thead class="thead-light">
+                <tr>
+                  <th>ID</th>
+                  <th>Người Đại Diện</th>
+                  <th>Hợp Đồng</th>
+                  <th>Ngày Chụp</th>
+                  <th>Mã Hợp Đồng</th>
+                  <th>Hành Động</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let contract of contracts; let i = index">
+                  <td>
+                    <span class="badge" [ngClass]="{'badge-success':contract.paid_at}">{{ contract.id }}</span>
+                  </td>
+                  <td class="project-title">
+                    <h6><a [attr.href]="contract.member.link_facebook ? contract.member.link_facebook : null">{{ contract.member.name }}</a></h6>
+                    <small>
+                      <a href="tel: {{ contract.member.phone_number }}">{{ contract.member.phone_number }}</a>
+                    </small>
+                  </td>
+                  <td class="project-title">
+                    <h6>
+                      <a [routerLink]="['/contracts', contract.id]">{{contract.group}} - {{contract.school.name}}</a>
+                    </h6>
+                  </td>
+                  <td>
+                    <h6 *ngFor="let date of contract.date_takens">{{date.date_taken | date: 'yyyy/MM/dd': '+0700'}}</h6>
+                  </td>
+                  <td>
+                    <h6><a [routerLink]="['/contracts', contract.id]">{{contract.code}}</a></h6>
+                  </td>
+                  <td class="project-actions">
+                    <a [routerLink]="['/contracts', contract.id]" class="btn btn-outline-secondary mr-1"><i class="icon-eye"></i></a>
+                    <a [routerLink]="['/contracts', contract.id, 'payment']" class="btn btn-outline-secondary"><i class="icon-pencil"></i></a>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

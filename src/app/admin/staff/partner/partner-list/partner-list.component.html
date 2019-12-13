@@ -1,0 +1,55 @@
+<div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-lg-12 col-md-12">
+      <div class="card">
+        <div class="header d-flex align-center left-right">
+          <h2>Inbox</h2>
+          <button [routerLink]="['../new']" type="button" class="btn btn-info"><i class="icon-plus"></i>&nbsp;<span>Tạo đối tác</span></button>
+        </div>
+        <div class="body project_report">
+          <div class="table-responsive">
+            <table class="table table-hover" *ngIf="partners">
+              <thead class="thead-light">
+                <tr>
+                  <th>Đơn vị</th>
+                  <th>Tình trạng</th>
+                  <th>Tiền đã trả</th>
+                  <th>Tiền tiêu tốn</th>
+                  <th>SĐT</th>
+                  <th>Facebook</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let partner of partners">
+                    <td class="image-with-name">
+                      <ul class="list-unstyled team-info">
+                        <li placement="top" ngbTooltip="Tooltip on the top"><img src="assets/img/photo.jpg" alt="Avatar"></li>
+                      </ul>
+                      <span class="name">{{partner.name}}</span>
+                    </td>
+                    <td>
+                      <span class="badge">TĐ</span>
+                      <span class="badge">Nợ</span>
+                    </td>
+                    <td>1,000 VND</td>
+                    <td>1,000 VND</td>
+                    <td>
+                      <a [href]="'tel:' + partner.phone_number">{{partner.phone_number}}</a>
+                    </td>
+                    <td>
+                      <a [href]="partner.phone_number">link</a>
+                    </td>
+                    <td class="project-actions">
+                      <a [routerLink]="[partner.id]" class="btn btn-outline-secondary mr-1" href="javascript:void(0);"><i class="icon-eye"></i></a>
+                      <a class="btn btn-outline-secondary" href="javascript:void(0);"><i class="icon-pencil"></i></a>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

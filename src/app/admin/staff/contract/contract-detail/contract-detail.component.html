@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-md-12">
+      <p-tabView class="tab-view-custom" *ngIf="contract" (onChange)="handleChange($event)">
+        <p-tabPanel header="Thông tin cơ bản" [selected]="fragment === 'basic'" leftIcon="pi pi-calendar">
+          <app-detail [contract]="contract"></app-detail>
+        </p-tabPanel>
+        <p-tabPanel header="Danh sách lớp" [selected]="fragment === 'members'" rightIcon="pi pi-inbox" [disabled]="!('member' | can: 'list')">
+          <app-members-contract></app-members-contract>
+        </p-tabPanel>
+        <p-tabPanel header="Trang phục" [selected]="fragment === 'costume'" [disabled]="!('member' | can: 'list')" leftIcon="pi pi-user" rightIcon="pi pi-star">
+          <app-costume-contract [contract]="contract"></app-costume-contract>
+        </p-tabPanel>
+        <p-tabPanel header="Thanh toán" [selected]="fragment === 'payment'" [disabled]="!('payment' | can: 'show')" leftIcon="pi pi-user" rightIcon="pi pi-star">
+          <app-payment></app-payment>
+        </p-tabPanel>
+      </p-tabView>  
+    </div>
+  </div>
+</div>

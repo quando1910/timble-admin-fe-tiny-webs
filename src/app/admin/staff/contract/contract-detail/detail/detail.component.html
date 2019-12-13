@@ -1,0 +1,126 @@
+<div class="row contract-detail">
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="body">
+        <h6><b>Thông tin nhóm/lớp</b></h6>
+        <label>Mã: </label><input type="text" readonly="readonly" [value]="contract?.code" #codeContract> <button class="btn" (click)="copyCode(codeContract)"><i class="fa fa-copy"></i></button><br>
+        <label>Lớp:</label><span> {{contract?.group}}</span><br>
+        <label>Niên hiệu:</label><span> {{contract?.label}}</span><br>
+        <label>Trường:</label><span> {{contract?.school.name}}</span><br>
+        <label>Sĩ số:</label><span> {{contract?.total_member}} ( {{contract?.male_number}} <i class="icon-symbol-male"></i> +
+          {{contract?.female_number}} <i class="icon-symbol-female"></i> )</span><br>
+        <p>
+          <ngb-progressbar type="success" [value]="87" height="5px"></ngb-progressbar>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="body">
+        <h6><b>Thông tin đại diện</b></h6>
+        <label>Tên:</label><span> {{contract?.member.name}}</span><br>
+        <label>SĐT:</label><a :href="`tel: ${item.user.phone}`"> {{contract?.member.phone_number}}</a><br>
+        <label>Facebook:</label><span> {{contract?.member.link_facebook}}</span><br>
+        <label>Giới tính:</label><span> {{contract?.member.gender | enum: genderEnum }}</span><br>
+        <p>
+          <ngb-progressbar type="success" [value]="87" height="5px"></ngb-progressbar>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="body">
+        <h6><b>Thông tin thợ phụ trách</b></h6>
+        <div class="photographer-list" *ngIf="photographers">
+          <div class="detail-container" *ngFor="let item of photographers; let index = index">
+            <b>{{ item.date_taken | date: 'dd/MM' }} - {{item.user.name}}</b>
+            <span class="description"> - {{item.photographer_role}} </span> <a :href="`tel: ${item.user.phone}`"><i class="fa fa-phone" aria-hidden="true"></i></a>
+          </div>
+        </div>
+        <ul class="list-unstyled team-info m-t-20">
+          <li class="m-r-15"><small class="text-muted">Team</small></li>
+          <li><img src="assets/img/photo.jpg" title="Avatar" alt="Avatar"></li>
+          <li><img src="assets/images/xs/avatar2.jpg" title="Avatar" alt="Avatar"></li>
+          <li><img src="assets/images/xs/avatar3.jpg" title="Avatar" alt="Avatar"></li>
+          <li><img src="assets/images/xs/avatar4.jpg" title="Avatar" alt="Avatar"></li>
+          <li><img src="assets/images/xs/avatar5.jpg" title="Avatar" alt="Avatar"></li>
+        </ul>
+        <p>
+          <ngb-progressbar type="success" [value]="87" height="5px"></ngb-progressbar>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12">
+    <div class="card" *ngIf="contract && contract.date_takens && contract.date_takens.length > 0">
+      <div class="body">
+        <h6 class="center-head">Lịch trình</h6>
+        <div *ngFor="let date of contract.date_takens">
+          <div *ngFor="let plan of date.plans">
+            <div class="timeline-item" [attr.date-is]="plan.plan_time | date: 'HH:mm' : '+0700'">
+              <span><b>Tập trung:</b> {{plan.place}}</span><br>
+              <span><b>Trang phục:</b> {{plan.costume}}</span><br>
+              <span>{{plan.plan_time | date: 'MM/dd'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-xl-8 col-lg-6 col-md-6 col-sm-12">
+      <div class="card">
+        <div class="body project_report">
+          <div class="container contract-info-main">
+            <b>Các gói dịch vụ đã chọn</b>
+            <table class="table">
+              <thead>
+                <tr class="row">
+                  <th class="col-md-4">Tên cụ thể</th>
+                  <th class="col-md-4">Cách tính tiền</th>
+                  <th class="col-md-4">Số lượng</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- <div *ngFor="let budget of budgets">
+                  <tr class="row" *ngIf="budget.type === 0">
+                    <td class="col-md-4">{{budget.name}}</td>
+                    <td class="col-md-4">{{statusCalc[budget.type]}}</td>
+                    <td class="col-md-4">{{budget.quantity}}</td>
+                  </tr>
+                </div> -->
+              </tbody>
+            </table>
+            <b>Các nội dung phát sinh</b>
+            <div>
+              <table class="table">
+                <thead>
+                  <tr class="row">
+                    <th class="col-md-4">Tên cụ thể</th>
+                    <th class="col-md-4">Cách tính tiền</th>
+                    <th class="col-md-4">Số lượng</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <!-- <div *ngFor="let budget of budgets">
+                    <tr class="row" *ngIf="budget.type === 1">
+                      <td class="col-md-4">{{budget.name}}</td>
+                      <td class="col-md-4">Theo số lượng thuê</td>
+                      <td class="col-md-4">{{budget.quantity}}</td>
+                    </tr>
+                  </div> -->
+                </tbody>
+              </table>
+            </div>
+            <div class="bonus-info">
+              <b>Thông tin bổ sung</b>
+              <p><b>Tiền cọc: </b>{{contract?.deposit}}</p>
+              <b>Ghi chú:</b>
+              <p style="white-space: pre-wrap;">{{contract?.note}}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>

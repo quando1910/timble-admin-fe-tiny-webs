@@ -1,0 +1,18 @@
+<div class="container-fluid" *ngIf="!isResizing">
+  <div class="block-header">
+    <div class="row">
+      <div class="col-lg-5 col-md-8 col-sm-12">
+        <h2 *ngIf="breadcrumb">
+          <a href="javascript:void(0);" class="btn btn-xs btn-link btn-toggle-fullwidth" (click)="toggleFullWidth()">
+            <i class="fa fa-arrow-left" *ngIf="sidebarVisible"></i>
+            <i class="fa fa-arrow-right" *ngIf="!sidebarVisible"></i>
+          </a> {{breadcrumb.title}}
+        </h2>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a [routerLink]="['/admin/staff']"><i class="icon-home"></i></a></li>
+          <li class="breadcrumb-item active">Hợp Đồng</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>

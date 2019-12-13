@@ -1,0 +1,41 @@
+<app-tabs [tabs]="tabs">
+    <div class="tab-content">
+    <div class="tab-pane" *ngFor="let tab of tabs;let i = index;" [ngClass]="{'active show': (i == activeTab || (activeTab == '' && i == 0))}">
+      <ng-content></ng-content>
+    </div>
+  </div>
+  <!-- <div 
+    class="tab-pane" 
+    *ngFor="let tab of tabs;let i = index;" 
+    >
+    <div tab1>
+      <h6>{{tab.title}}</h6>
+    </div> -->
+    <!-- <div class="row">
+      <div class="col-sm-3">
+        <h6 *ngIf="!tab.hideTitle && tab.title">{{tab.title}}</h6>
+      </div>
+      <div class="col-sm-3 offset-sm-6 alight-right">
+        <button type="button"
+                (click)="addPlan(tab.title)"
+                class="btn btn-warning mr-1 float-right"><i class="fa fa-edit"></i>
+        </button>
+      </div>
+    </div> -->
+    <!-- <ng-container *ngFor="let post of tab.content; let i = index">
+      <div class="timeline-item" ngClass='{{post.class}}' [attr.date-is]="post.date">
+        <span class="font-weight-bold">Tập trung: </span>
+        <span>{{post.location}}</span>
+        <br>
+        <span class="font-weight-bold">Trang phục: </span>
+        <span>{{post.location}}</span>
+        <div>
+          <a href="javascript:void(0);" role="button" (click)="remove(i)"><i class="fa fa-trash-o"></i></a>
+        </div>
+      </div>
+    </ng-container> -->
+  <!-- </div> -->
+</app-tabs>
+
+<!-- (addPlanEmit)="addPlan($event)" 
+  (removePlanEmit)="removePlan($event)"  -->

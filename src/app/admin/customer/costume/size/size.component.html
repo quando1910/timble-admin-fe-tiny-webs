@@ -1,0 +1,85 @@
+<div class="container-fluid">
+  <div class="row clearfix">
+    <div class="col-md-3 col-xs-12" *ngIf="member && contract">
+      <div class="card profile-header">
+        <div class="body">
+          <div class="text-center">
+            <img src="assets/images/user.png" class="rounded-circle m-b-15" alt="">
+            <div>
+              <h4 class="m-b-0">{{member.name}}</h4>
+              <a [routerLink]="['/admin/customer/contracts']">{{contract.group}} - {{contract.school.name}}</a>
+            </div>
+            <div class="progress progress-xs m-b-25 m-t-25">
+              <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+              </div>
+            </div>
+            <div class="row" *ngIf="member.height">
+              <div class="col-4">
+                <h6>Cao</h6>
+                <span>{{member.height}}</span>
+              </div>
+              <div class="col-4">
+                <h6>Cân</h6>
+                <span>{{member.weight}}</span>
+              </div>
+              <div class="col-4">
+                <h6>Size</h6>
+                <span>{{member.size}}</span>
+              </div>
+            </div>
+          </div>
+          <hr>
+          <h6>Lịch thử đồ đã đăng kí</h6>
+          <span class="badge badge-primary mb-2">{{member?.time_try_range}} - {{member?.date_try | date: 'dd/MM'}}</span>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 col-xs-12">
+      <div class="card">
+        <div class="body project_report">
+          <div class="container">
+            <form [formGroup]="sizeForm" class="form-auth-small" (ngSubmit)="onSubmit()">
+              <div class="form-group">
+                <label for="signup-email" class="control-label">Chiều cao</label>
+                <input formControlName="height" type="number" class="form-control"
+                  placeholder="quy đổi ra số centimet. VD: 1m7 = 170">
+              </div>
+              <div class="form-group">
+                <label for="signup-email" class="control-label">Cân nặng</label>
+                <input formControlName="weight" type="number" class="form-control"
+                  placeholder="quy đổi ra số kilogram. VD: 60kg = 60">
+              </div>
+              <div class="form-group">
+                <label for="signup-password" class="control-label">Size quần áo thường mặc</label>
+                <input formControlName="size" type="string" class="form-control" placeholder="S,M,L,XL,XXL,XXXL">
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="submitted">Đăng ký
+                Size</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-xs-12">
+      <div class="card">
+        <div class="body project_report">
+          <div class="container">
+            <small>Hãy nhập thời gian thử đồ mà bạn có thể đi được. <br>Lưu ý, lịch nhập của bạn chỉ mang tính chất tham khảo để studio tính toán và sắp xếp lịch dựa trên số lượng người thử đồ cho 1 buổi.</small>
+            <form [formGroup]="dateTryForm" class="form-auth-small" (ngSubmit)="onSubmitTry()">
+              <div class="form-group">
+                <label for="signup-email" class="control-label">Thời gian có thể thử đồ</label><br>
+                <p-dropdown [options]="timeTry" formControlName="time_try_range" placeholder="Chọn thời gian"></p-dropdown>
+              </div>
+              <div class="form-group">
+                <label for="signup-email" class="control-label">Ngày Thử</label><br>
+                <p-calendar dateFormat="dd/mm/yy" formControlName="date_try"></p-calendar>
+              </div>
+              <button type="submit" class="btn btn-primary btn-lg btn-block" [disabled]="submittedTry">Đăng ký
+                Lịch Thử</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

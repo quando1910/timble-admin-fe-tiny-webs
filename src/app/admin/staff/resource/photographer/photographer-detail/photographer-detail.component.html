@@ -1,0 +1,221 @@
+<div class="container-fluid profilepage_2 blog-page" *ngIf="photographer">
+	<div class="row clearfix">
+		<div class="col-lg-4 col-md-12">
+			<div class="card profile-header">
+				<div class="body">
+					<div class="profile-image"> <img src="assets/images/user.png" class="rounded-circle" alt=""> </div>
+					<div>
+						<h4 class="m-b-0">{{photographer.name}}</h4>
+						<span>{{photographer.email}}</span>
+					</div>
+					<div class="m-t-15">
+						<button class="btn btn-outline-secondary">Message</button>
+					</div>
+				</div>
+			</div>
+			<div class="card">
+				<ul class="row profile_state list-unstyled">
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-camera"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="2365" data-speed="1000" data-fresh-interval="700">2365</h5>
+							<small>Shots View</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-thumbs-o-up"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="1203" data-speed="1000" data-fresh-interval="700">1203</h5>
+							<small>Likes</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-comments-o"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="324" data-speed="1000" data-fresh-interval="700">324</h5>
+							<small>Comments</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-user"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="1980" data-speed="1000" data-fresh-interval="700">1980</h5>
+							<small>Profile Views</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-desktop"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="251" data-speed="1000" data-fresh-interval="700">251</h5>
+							<small>Website View</small>
+						</div>
+					</li>
+					<li class="col-lg-6 col-6">
+						<div class="body">
+							<i class="fa fa-file-text text-warning"></i>
+							<h5 class="m-b-0 number count-to" data-from="0" data-to="52" data-speed="1000" data-fresh-interval="700">52</h5>
+							<small>Attachment</small>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="card">
+				<div class="header">
+					<h2>Who to follow</h2>
+				</div>
+				<div class="body">
+					<ul class="right_chat list-unstyled">
+						<li class="online">
+							<a href="javascript:void(0);">
+								<div class="media">
+									<img class="media-object " src="assets/images/xs/avatar4.jpg" alt="">
+									<div class="media-body">
+										<span class="name">Chris Fox</span>
+										<span class="message">Designer, Blogger</span>
+										<span class="badge badge-outline status"></span>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="online">
+							<a href="javascript:void(0);">
+								<div class="media">
+									<img class="media-object " src="assets/images/xs/avatar5.jpg" alt="">
+									<div class="media-body">
+										<span class="name">Joge Lucky</span>
+										<span class="message">Java Developer</span>
+										<span class="badge badge-outline status"></span>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="offline">
+							<a href="javascript:void(0);">
+								<div class="media">
+									<img class="media-object " src="assets/images/xs/avatar2.jpg" alt="">
+									<div class="media-body">
+										<span class="name">Isabella</span>
+										<span class="message">CEO, Thememakker</span>
+										<span class="badge badge-outline status"></span>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="offline">
+							<a href="javascript:void(0);">
+								<div class="media">
+									<img class="media-object " src="assets/img/photo.jpg" alt="">
+									<div class="media-body">
+										<span class="name">Folisise Chosielie</span>
+										<span class="message">Art director, Movie Cut</span>
+										<span class="badge badge-outline status"></span>
+									</div>
+								</div>
+							</a>
+						</li>
+						<li class="online">
+							<a href="javascript:void(0);">
+								<div class="media">
+									<img class="media-object " src="assets/images/xs/avatar3.jpg" alt="">
+									<div class="media-body">
+										<span class="name">Alexander</span>
+										<span class="message">Writter, Mag Editor</span>
+										<span class="badge badge-outline status"></span>
+									</div>
+								</div>
+							</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-8 col-md-12">
+			<div class="card">
+				<div class="body">
+					<h6>Danh sách công việc (chưa chi trả lương)</h6>
+					<table class="table billing-history">
+						<thead>
+							<tr>
+								<th>Ngày chụp</th>
+								<th>Vai trò</th>
+								<th>Lương</th>
+								<th>Tình trạng</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let task of unpaidTask">
+								<td>
+									<h6 class="billing-title">{{task.date_taken?.contract?.name}}</h6>
+									<span class="text-muted">{{task.date_taken?.date_taken | date: 'yyyy/MM/dd' : '+0700'}} </span> <span class="invoice-number"> #{{task.date_taken?.contract?.code}}</span>
+								</td>
+								<td class="amount"><span>{{task.photographer_role}}</span></td>
+								<td class="action"><a href="javascript:void(0);">{{task.salary}}</a></td>
+								<td><span class="badge badge-warning m-b-0">Chưa trả</span></td>
+								<td *ngIf="route.snapshot.params.id"><a class="btn btn-outline-secondary" (click)="paySalary(dialogPaidSalary, 'lg', task.id)"><i class="icon-pencil"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="card">
+				<div class="body">
+					<h6>
+						Danh sách ứng tiền/ nợ 
+						<button class="btn btn-primary mr-1 to-the-right" (click)="openDialog(dialogAddDebt, 'lg')">Thêm nợ</button>
+					</h6>
+					<table class="table billing-history">
+						<thead>
+							<tr>
+								<th>Ngày ứng</th>
+								<th>Số tiền</th>
+								<th>Ghi chú</th>
+								<th>Tình trạng</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let task of debts">
+								<td>
+									<h3 class="billing-title">{{convertDate(task.date?.seconds) | date: 'yyyy/MM/dd' : '+0700'}}</h3>
+								</td>
+								<td class="amount">{{task.money}}</td>
+								<td class="amount">{{task.note}}</td>
+								<td>
+									<span class="badge m-b-0" [ngClass]="{'badge-success': task.paid, 'badge-warning': !task.paid}">{{task.paid ? 'Đã trả' : 'Chưa trả'}}</span>
+								</td>
+								<td><a class="btn btn-outline-secondary" (click)="removeDebt(task)"><i class="icon-trash"></i></a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<ng-template #dialogAddDebt let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Thông tin thợ chụp</h4>
+  </div>
+  <div class="modal-body">
+    <app-new-form 
+      [inputForm]="dataForm" 
+      [renderView]="renderView" 
+      (submitForm)="addDebt($event)">
+    </app-new-form>
+  </div>
+</ng-template>
+
+<ng-template #dialogPaidSalary let-modalSalary>
+		<div class="modal-header">
+			<h4 class="modal-title">Trả lương</h4>
+		</div>
+		<div class="modal-body">
+			<app-new-form 
+				[inputForm]="salaryForm" 
+				[renderView]="salaryView" 
+				(submitForm)="paidSalary($event)">
+			</app-new-form>
+		</div>
+	</ng-template>
